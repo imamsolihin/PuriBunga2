@@ -19,10 +19,10 @@
         [x-cloak] { display: none !important; }
     </style>
 </head>
-<body x-data="{ sidebarOpen: window.innerWidth >= 1024 }">
+<body x-data="{ sidebarOpen: false, isLg: window.innerWidth >= 1024 }" x-init="sidebarOpen = isLg; window.addEventListener('resize', () => { isLg = window.innerWidth >= 1024; if (isLg) sidebarOpen = true; })">
 
     {{-- Overlay Mobile --}}
-    <div x-show="sidebarOpen && window.innerWidth < 1024"
+    <div x-show="sidebarOpen && !isLg"
          @click="sidebarOpen=false"
          class="fixed inset-0 z-30 bg-black/40 lg:hidden"
          x-cloak></div>
@@ -80,7 +80,7 @@
     </aside>
 
     {{-- Main Content --}}
-    <div :class="sidebarOpen && window.innerWidth >= 1024 ? 'lg:ml-72' : ''" class="min-h-screen transition-all duration-300">
+    <div :class="sidebarOpen && isLg ? 'lg:ml-72' : ''" class="min-h-screen transition-all duration-300">
         <header class="bg-white/80 backdrop-blur-md border-b border-slate-100 sticky top-0 z-20">
             <div class="flex items-center justify-between px-6 h-20">
                 <div class="flex items-center gap-4">
