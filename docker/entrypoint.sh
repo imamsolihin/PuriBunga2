@@ -8,6 +8,9 @@ php artisan view:cache
 # Run migrations (force for production)
 php artisan migrate --force
 
+# Fix permissions for logs/caches created by artisan as root
+chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+
 # Start PHP-FPM in the background
 php-fpm -D
 
