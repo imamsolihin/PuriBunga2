@@ -1,0 +1,49 @@
+services:
+  - type: web
+    name: puribunga2-web
+    env: docker
+    plan: free # or 'starter' if you need more resources
+    region: singapore # Adjust based on your preference
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        generateValue: true
+      - key: APP_URL
+        fromContext: git.url
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        fromService:
+          type: database
+          name: puribunga2-db
+          property: host
+      - key: DB_PORT
+        fromService:
+          type: database
+          name: puribunga2-db
+          property: port
+      - key: DB_DATABASE
+        fromService:
+          type: database
+          name: puribunga2-db
+          property: database
+      - key: DB_USERNAME
+        fromService:
+          type: database
+          name: puribunga2-db
+          property: user
+      - key: DB_PASSWORD
+        fromService:
+          type: database
+          name: puribunga2-db
+          property: password
+
+databases:
+  - name: puribunga2-db
+    plan: free # or 'starter'
+    databaseName: puri_bunga2
+    user: admin
+    region: singapore
