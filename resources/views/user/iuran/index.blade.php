@@ -52,7 +52,7 @@
                     @forelse($iurans as $i)
                     <tr class="hover:bg-slate-50 transition-colors">
                         <td class="py-5 px-6">
-                            <p class="text-slate-800 font-bold">{{ $i->kategoriIuran->nama_kategori }}</p>
+                            <p class="text-slate-800 font-bold">{{ $i->kategoriIuran?->nama_kategori ?? 'Umum' }}</p>
                         </td>
                         <td class="py-5 px-6">
                             <span class="text-slate-500 font-medium">{{ $i->bulan }}</span>
