@@ -12,8 +12,8 @@ php artisan cache:clear
 php artisan route:clear
 php artisan view:clear
 
-# Run migrations (force for production)
-php artisan migrate --force
+# Run migrations and seeders (force for production)
+php artisan migrate --force --seed
 
 # Fix permissions for logs/caches created by artisan as root
 chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
