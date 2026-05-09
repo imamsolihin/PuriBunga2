@@ -48,7 +48,7 @@
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
                             </div>
                             <div>
-                                <p class="text-slate-800 font-bold text-sm">{{ $i->kategoriIuran->nama_kategori }}</p>
+                                <p class="text-slate-800 font-bold text-sm">{{ $i->kategoriIuran?->nama_kategori ?? 'Umum' }}</p>
                                 <p class="text-slate-400 text-xs font-medium">{{ $i->bulan }} {{ $i->tahun }}</p>
                             </div>
                         </div>
@@ -75,7 +75,7 @@
             <div class="space-y-4">
                 @forelse($pengumumans as $p)
                 <div class="card-stat p-6 border-l-4 border-blue-500">
-                    <span class="text-[10px] font-bold text-blue-500 uppercase tracking-widest">{{ $p->created_at->format('d M Y') }}</span>
+                    <span class="text-[10px] font-bold text-blue-500 uppercase tracking-widest">{{ $p->created_at ? $p->created_at->format('d M Y') : '-' }}</span>
                     <h5 class="text-slate-800 font-bold text-base mt-1 mb-2">{{ $p->judul }}</h5>
                     <p class="text-slate-500 text-sm leading-relaxed line-clamp-2">
                         {{ $p->isi }}
