@@ -12,7 +12,7 @@ class IuranController extends Controller
         $warga = auth()->user()->warga;
 
         if (!$warga) {
-            return view('user.iuran', ['iurans' => collect(), 'warga' => null]);
+            return view('user.iuran.index', ['iurans' => collect(), 'warga' => null]);
         }
 
         $query = Iuran::where('warga_id', $warga->id)->with('kategoriIuran');
@@ -29,6 +29,6 @@ class IuranController extends Controller
                        ->orderByDesc('id') // Bulan order logic is complex, ID usually reflects order
                        ->paginate(20);
 
-        return view('user.iuran', compact('warga', 'iurans'));
+        return view('user.iuran.index', compact('warga', 'iurans'));
     }
 }

@@ -10,6 +10,6 @@ class PengumumanController extends Controller
     public function index()
     {
         $pengumumans = Pengumuman::where('status', 'aktif')->orderByDesc('created_at')->paginate(10);
-        return view('user.pengumuman', compact('pengumumans'));
+        return view('user.pengumuman.index', compact('pengumumans'));
     }
 }
