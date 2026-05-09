@@ -4,32 +4,37 @@
 @section('content')
 <div class="space-y-8">
     {{-- Info Card --}}
-    <div class="card-stat p-8 bg-gradient-to-br from-[#0f2557] to-[#1a3a8f] relative overflow-hidden group">
+    <div class="rounded-3xl p-8 relative overflow-hidden" style="background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #2563eb 100%);">
         <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
             <div>
-                <h3 class="text-blue-200 text-xs font-bold uppercase tracking-[0.2em] mb-2">Informasi Hunian</h3>
-                <div class="flex items-baseline gap-2">
-                    <p class="text-blue-100 font-black text-3xl">Blok {{ $warga->blok_rumah }}</p>
-                    <p class="text-blue-200 font-bold text-xl">/ No. {{ $warga->nomor_rumah }}</p>
+                <p class="text-white/70 text-xs font-bold uppercase tracking-[0.25em] mb-3">Informasi Hunian</p>
+                <div class="flex items-baseline gap-3">
+                    <p class="text-white text-4xl font-black drop-shadow">Blok {{ $warga->blok_rumah }}</p>
+                    <p class="text-white text-2xl font-bold drop-shadow">/ No. {{ $warga->nomor_rumah }}</p>
                 </div>
-                <p class="text-blue-100 text-sm mt-3 font-semibold flex items-center gap-2">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                    Terdaftar sebagai warga aktif Puri Bunga 2
-                </p>
+                <div class="flex items-center gap-2 mt-4">
+                    <div class="w-5 h-5 rounded-full bg-green-400 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <p class="text-white font-semibold text-sm">Terdaftar sebagai warga aktif Puri Bunga 2</p>
+                </div>
             </div>
-            <div class="flex gap-4">
-                <div class="text-center bg-white/10 backdrop-blur-md rounded-2xl p-4 min-w-[100px] border border-white/10">
-                    <p class="text-white text-xl font-black">{{ $totalLunas }}</p>
-                    <p class="text-blue-200 text-[10px] font-bold uppercase">Lunas</p>
+            <div class="flex gap-4 flex-shrink-0">
+                <div class="text-center bg-white/20 backdrop-blur-md rounded-2xl px-6 py-4 min-w-[100px] border border-white/30">
+                    <p class="text-white text-3xl font-black drop-shadow">{{ $totalLunas }}</p>
+                    <p class="text-white font-bold text-xs uppercase tracking-wider mt-1">✓ Lunas</p>
                 </div>
-                <div class="text-center bg-white/10 backdrop-blur-md rounded-2xl p-4 min-w-[100px] border border-white/10">
-                    <p class="text-white text-xl font-black">{{ $totalBelum }}</p>
-                    <p class="text-blue-200 text-[10px] font-bold uppercase">Belum</p>
+                <div class="text-center bg-white/20 backdrop-blur-md rounded-2xl px-6 py-4 min-w-[100px] border border-white/30">
+                    <p class="text-white text-3xl font-black drop-shadow">{{ $totalBelum }}</p>
+                    <p class="text-white font-bold text-xs uppercase tracking-wider mt-1">⏳ Belum</p>
                 </div>
             </div>
         </div>
-        {{-- Decor --}}
-        <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-white/5 rounded-full blur-3xl group-hover:bg-white/10 transition-all duration-700"></div>
+        {{-- Decorative circles --}}
+        <div class="absolute -right-10 -top-10 w-48 h-48 bg-white/5 rounded-full"></div>
+        <div class="absolute -right-4 -bottom-16 w-64 h-64 bg-white/5 rounded-full"></div>
     </div>
 
     <div class="grid lg:grid-cols-2 gap-8">
