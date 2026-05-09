@@ -5,9 +5,12 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
-# Clear caches
+# Clear all caches
+php artisan optimize:clear
 php artisan config:clear
 php artisan cache:clear
+php artisan route:clear
+php artisan view:clear
 
 # Run migrations (force for production)
 php artisan migrate --force
