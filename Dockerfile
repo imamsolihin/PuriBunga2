@@ -4,6 +4,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
+RUN rm -f public/hot
 RUN npm run build
 
 # Use PHP with FPM and Nginx
