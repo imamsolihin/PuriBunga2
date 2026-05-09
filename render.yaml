@@ -11,3 +11,9 @@ services:
         value: false
       - key: DB_CONNECTION
         value: pgsql
+      - key: CACHE_STORE
+        value: file
+      - key: SESSION_DRIVER
+        value: file
+      - key: QUEUE_CONNECTION
+        value: sync
