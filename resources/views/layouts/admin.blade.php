@@ -23,11 +23,14 @@
         .animate-in { animation: fadeIn 0.4s ease forwards; }
     </style>
 </head>
-<body x-data="{ sidebarOpen: window.innerWidth >= 1024 }">
+<body x-data="{
+    open: window.innerWidth >= 1024,
+    get isDesktop() { return window.innerWidth >= 1024; }
+}" @resize.window="if (window.innerWidth >= 1024) { open = true }">
 
     {{-- Overlay Mobile --}}
-    <div x-show="sidebarOpen && window.innerWidth < 1024"
-         @click="sidebarOpen=false"
+    <div x-show="open && !isDesktop"
+         @click="open = false"
          class="fixed inset-0 z-30 bg-black/50 lg:hidden overlay"
          x-cloak
          x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
@@ -35,7 +38,7 @@
     </div>
 
     {{-- Sidebar --}}
-    <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
+    <aside :style="open ? 'transform:translateX(0)' : 'transform:translateX(-100%)'"
            class="sidebar fixed top-0 left-0 h-full w-64 z-40 flex flex-col shadow-2xl">
         <div class="flex items-center gap-3 px-6 py-5 border-b border-white/10">
             <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center flex-shrink-0">
@@ -98,12 +101,12 @@
     </aside>
 
     {{-- Main Content --}}
-    <div :class="sidebarOpen && window.innerWidth >= 1024 ? 'lg:ml-64' : ''" class="min-h-screen transition-all duration-300">
+    <div :class="open && isDesktop ? 'ml-64' : ''" class="min-h-screen transition-all duration-300">
         {{-- Top Bar --}}
         <header class="bg-white border-b border-slate-200 sticky top-0 z-20 shadow-sm">
             <div class="flex items-center justify-between px-4 sm:px-6 h-16">
                 <div class="flex items-center gap-4">
-                    <button @click="sidebarOpen = !sidebarOpen" class="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-slate-100 transition-colors">
+                    <button @click="open = !open" type="button" class="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-slate-100 transition-colors active:scale-95" aria-label="Toggle sidebar">
                         <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
                     </button>
                     <h1 class="font-semibold text-slate-800 text-sm sm:text-base">@yield('page-title', 'Dashboard')</h1>
