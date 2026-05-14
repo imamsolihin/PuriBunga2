@@ -239,7 +239,7 @@
             <div class="flex flex-col sm:flex-row gap-6 justify-center animate-in" style="animation-delay: 0.4s">
                 <a href="#tentang" class="btn-premium px-12 py-5 rounded-full font-bold text-lg tracking-wide">Jelajahi Hunian</a>
                 <a href="https://wa.me/6281332544545" class="glass text-white px-12 py-5 rounded-full font-bold text-lg border border-white/30 hover:bg-white/10 transition-all backdrop-blur-md">
-                    Hubungi Marketing
+                    Hubungi Pengurus
                 </a>
             </div>
         </div>
@@ -424,8 +424,8 @@
                             </div>
                         </div>
                     </div>
-                    <a href="https://maps.app.goo.gl/Pm1YMoSoZZmvF6Fs8" target="_blank" class="btn-premium inline-flex items-center gap-2 px-8 py-4 rounded-full font-bold mt-10">
-                        Buka di Google Maps <i data-lucide="external-link" class="w-4 h-4"></i>
+                    <a href="https://wa.me/6281332544545" target="_blank" class="btn-premium inline-flex items-center gap-2 px-8 py-4 rounded-full font-bold mt-10">
+                        Hubungi Pengurus <i data-lucide="external-link" class="w-4 h-4"></i>
                     </a>
                 </div>
                 <div class="lg:col-span-2 rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-white h-[500px]">
