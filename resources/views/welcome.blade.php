@@ -45,7 +45,7 @@
             position: relative;
         }
 
-        /* Subtle Luxury Pattern */
+        /* Luxury Batik Pattern Overlay */
         body::before {
             content: '';
             position: fixed;
@@ -53,8 +53,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
-            opacity: 0.03;
+            background-image: url("{{ asset('images/batik-pattern.png') }}");
+            background-size: 400px; /* Adjust size of batik tile */
+            opacity: 0.04; /* Keep it very subtle */
             pointer-events: none;
             z-index: -1;
         }
