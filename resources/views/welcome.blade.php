@@ -20,12 +20,13 @@
         :root {
             --primary: #0A192F;
             --primary-light: #112240;
-            --accent: #CCAC00; /* Gold accent */
-            --accent-hover: #E6C200;
-            --text-main: #E6F1FF;
-            --text-dim: #8892B0;
+            --accent: #C5A059; /* Luxury Gold */
+            --accent-hover: #D4AF37;
+            --text-main: #1A202C;
+            --text-dim: #4A5568;
             --white: #FFFFFF;
-            --bg-light: #F8FAFC;
+            --bg-luxury: #FDFCFB; /* Soft Ivory/Linen */
+            --bg-accent: #F4F1EA; /* Champagne */
         }
 
         * {
@@ -38,9 +39,24 @@
         }
 
         body {
-            background-color: var(--white);
+            background: linear-gradient(to bottom, var(--bg-luxury), var(--bg-accent));
             color: var(--primary);
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Subtle Luxury Pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: -1;
         }
 
         .glass {
@@ -222,17 +238,19 @@
     <!-- Hero Section -->
     <section id="home" class="hero-section min-h-screen flex items-center justify-center text-center px-6 pt-20">
         <div class="max-w-4xl">
-            <span class="text-accent font-bold tracking-[0.3em] uppercase text-sm mb-6 block animate-in" style="animation-delay: 0.1s">Elegance & Comfort</span>
-            <h1 class="text-5xl md:text-7xl text-white font-extrabold mb-8 leading-tight animate-in" style="animation-delay: 0.2s">
+            <span class="text-accent/90 font-bold tracking-[0.4em] uppercase text-xs mb-8 block animate-in" style="animation-delay: 0.1s">
+                Elegance & Comfort
+            </span>
+            <h1 class="text-5xl md:text-8xl text-white font-extrabold mb-8 leading-tight animate-in" style="animation-delay: 0.2s">
                 Hunian Eksklusif di <br>
-                <span class="text-accent">Puri Bunga 2</span> Residence
+                <span class="text-accent">Puri Bunga 2</span>
             </h1>
-            <p class="text-text-dim text-lg md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed animate-in" style="animation-delay: 0.3s">
+            <p class="text-white/80 text-lg md:text-2xl mb-12 max-w-3xl mx-auto leading-relaxed font-light animate-in" style="animation-delay: 0.3s">
                 Kombinasi sempurna antara kemewahan arsitektur modern dan lingkungan yang asri untuk kebahagiaan keluarga Anda.
             </p>
             <div class="flex flex-col sm:flex-row gap-6 justify-center animate-in" style="animation-delay: 0.4s">
-                <a href="#tentang" class="btn-premium px-10 py-4 rounded-full font-bold text-lg">Jelajahi Hunian</a>
-                <a href="https://wa.me/6281332544545" class="glass text-white px-10 py-4 rounded-full font-bold text-lg border border-white/20 hover:bg-white/10 transition-all">
+                <a href="#tentang" class="btn-premium px-12 py-5 rounded-full font-bold text-lg tracking-wide">Jelajahi Hunian</a>
+                <a href="https://wa.me/6281332544545" class="glass text-white px-12 py-5 rounded-full font-bold text-lg border border-white/30 hover:bg-white/10 transition-all backdrop-blur-md">
                     Hubungi Marketing
                 </a>
             </div>
@@ -292,7 +310,7 @@
     </section>
 
     <!-- Tentang Perumahan Section -->
-    <section id="tentang" class="py-24 bg-white">
+    <section id="tentang" class="py-24 bg-transparent">
         <div class="max-w-5xl mx-auto px-6">
             <div class="text-center mb-16">
                 <span class="text-accent font-bold tracking-widest text-sm mb-4 block uppercase">Our Residence</span>
@@ -394,7 +412,7 @@
     </section>
 
     <!-- Location Section -->
-    <section id="lokasi" class="py-24 bg-white">
+    <section id="lokasi" class="py-24 bg-transparent">
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid lg:grid-cols-3 gap-12 items-center">
                 <div class="lg:col-span-1">
