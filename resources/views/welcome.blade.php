@@ -443,20 +443,20 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-primary text-white py-20 px-6">
+    <footer class="py-20 px-6 border-t border-accent/10">
         <div class="max-w-7xl mx-auto">
             <div class="grid md:grid-cols-4 gap-12 mb-16">
                 <div class="col-span-2">
                     <a href="#" class="flex items-center gap-3 mb-8">
-                        <span class="text-white font-bold text-2xl">Puri Bunga <span class="text-accent">2</span></span>
+                        <span class="text-primary font-bold text-2xl tracking-tight">Puri Bunga <span class="text-accent">2</span></span>
                     </a>
-                    <p class="text-white/70 max-w-sm leading-relaxed">
+                    <p class="text-text-dim max-w-sm leading-relaxed">
                         Hunian mewah dengan fasilitas lengkap dan keamanan 24 jam. Investasi terbaik untuk masa depan keluarga Anda di Malang.
                     </p>
                 </div>
                 <div>
-                    <h4 class="font-bold text-accent mb-6">Quick Links</h4>
-                    <ul class="space-y-4 text-white/80">
+                    <h4 class="font-bold text-primary mb-6">Quick Links</h4>
+                    <ul class="space-y-4 text-text-dim">
                         <li><a href="#keuangan" class="hover:text-accent transition-colors">Laporan Keuangan</a></li>
                         <li><a href="#tentang" class="hover:text-accent transition-colors">Tentang Kami</a></li>
                         <li><a href="#pengumuman" class="hover:text-accent transition-colors">Pengumuman</a></li>
@@ -464,22 +464,22 @@
                     </ul>
                 </div>
                 <div>
-                    <h4 class="font-bold text-accent mb-6">Social Media</h4>
+                    <h4 class="font-bold text-primary mb-6">Social Media</h4>
                     <div class="flex gap-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-primary-light flex items-center justify-center hover:bg-accent hover:text-primary transition-all text-white"><i data-lucide="instagram" class="w-5 h-5"></i></a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-primary-light flex items-center justify-center hover:bg-accent hover:text-primary transition-all text-white"><i data-lucide="facebook" class="w-5 h-5"></i></a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-primary-light flex items-center justify-center hover:bg-accent hover:text-primary transition-all text-white"><i data-lucide="youtube" class="w-5 h-5"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white border border-accent/20 flex items-center justify-center hover:bg-accent hover:text-white transition-all text-primary shadow-sm"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white border border-accent/20 flex items-center justify-center hover:bg-accent hover:text-white transition-all text-primary shadow-sm"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white border border-accent/20 flex items-center justify-center hover:bg-accent hover:text-white transition-all text-primary shadow-sm"><i data-lucide="youtube" class="w-5 h-5"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-                <p class="text-white/60 text-sm text-center md:text-left">
+            <div class="pt-12 border-t border-accent/10 flex flex-col md:flex-row justify-between items-center gap-6">
+                <p class="text-text-dim text-sm text-center md:text-left">
                     &copy; {{ date('Y') }} Puri Bunga 2 Residence. All rights reserved. 
                     <span class="block md:inline mt-2 md:mt-0">Developed with Luxury in Mind.</span>
                 </p>
-                <div class="flex gap-8 text-sm text-white/60">
-                    <a href="#" class="hover:text-white">Privacy Policy</a>
-                    <a href="#" class="hover:text-white">Terms of Service</a>
+                <div class="flex gap-8 text-sm text-text-dim">
+                    <a href="#" class="hover:text-primary">Privacy Policy</a>
+                    <a href="#" class="hover:text-primary">Terms of Service</a>
                 </div>
             </div>
         </div>
