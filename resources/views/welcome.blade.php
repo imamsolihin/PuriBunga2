@@ -39,26 +39,15 @@
         }
 
         body {
-            background: linear-gradient(to bottom, var(--bg-luxury), var(--bg-accent));
+            background: 
+                linear-gradient(rgba(253, 252, 251, 0.88), rgba(244, 241, 234, 0.88)), 
+                url("{{ asset('images/batik-pattern.png') }}");
+            background-attachment: fixed;
+            background-size: auto, 500px;
+            background-repeat: no-repeat, repeat;
             color: var(--primary);
             overflow-x: hidden;
             position: relative;
-        }
-
-        /* Luxury Batik Pattern Overlay */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("{{ asset('images/batik-pattern.png') }}");
-            background-size: 500px; /* Adjust size of batik tile */
-            background-repeat: repeat;
-            opacity: 0.12; /* Increased visibility */
-            pointer-events: none;
-            z-index: -1;
         }
 
         .glass {
