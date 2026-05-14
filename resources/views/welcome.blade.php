@@ -495,14 +495,6 @@
                         <li><a href="{{ route('login') }}" class="hover:text-accent transition-colors">Login Warga</a></li>
                     </ul>
                 </div>
-                <div>
-                    <h4 class="font-bold text-primary mb-6">Social Media</h4>
-                    <div class="flex gap-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-white border border-accent/20 flex items-center justify-center hover:bg-accent hover:text-white transition-all text-primary shadow-sm"><i data-lucide="instagram" class="w-5 h-5"></i></a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-white border border-accent/20 flex items-center justify-center hover:bg-accent hover:text-white transition-all text-primary shadow-sm"><i data-lucide="facebook" class="w-5 h-5"></i></a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-white border border-accent/20 flex items-center justify-center hover:bg-accent hover:text-white transition-all text-primary shadow-sm"><i data-lucide="youtube" class="w-5 h-5"></i></a>
-                    </div>
-                </div>
             </div>
             <div class="pt-12 border-t border-accent/10 flex flex-col md:flex-row justify-between items-center gap-6">
                 <p class="text-text-dim text-sm text-center md:text-left">
