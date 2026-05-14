@@ -4,9 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 // ─── Public ──────────────────────────────────────────────────────────────────
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [\App\Http\Controllers\LandingController::class, 'index'])->name('home');
 
 // ─── Auth (Breeze) ────────────────────────────────────────────────────────────
 require __DIR__.'/auth.php';
