@@ -1,0 +1,33 @@
+@extends('layouts.admin')
+@section('title', 'Laporan Keuangan')
+@section('page-title', 'Pusat Laporan Keuangan')
+@section('content')
+<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {{-- Buku Besar --}}
+    <a href="{{ route('admin.laporan.buku-besar') }}" class="card-stat p-6 hover:ring-2 hover:ring-blue-500 transition-all group">
+        <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600 mb-4 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        </div>
+        <h3 class="font-bold text-slate-800 mb-1">Buku Besar</h3>
+        <p class="text-xs text-slate-500 leading-relaxed">Lihat detail mutasi transaksi untuk setiap akun perkiraan (COA) dalam periode tertentu.</p>
+    </a>
+
+    {{-- Neraca Saldo --}}
+    <a href="{{ route('admin.laporan.neraca-saldo') }}" class="card-stat p-6 hover:ring-2 hover:ring-indigo-500 transition-all group">
+        <div class="w-12 h-12 rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-600 mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+        </div>
+        <h3 class="font-bold text-slate-800 mb-1">Neraca Saldo</h3>
+        <p class="text-xs text-slate-500 leading-relaxed">Ringkasan saldo akhir dari seluruh akun perkiraan untuk memastikan keseimbangan debit dan kredit.</p>
+    </a>
+
+    {{-- Laporan Iuran (Placeholder) --}}
+    <div class="card-stat p-6 opacity-60 grayscale cursor-not-allowed">
+        <div class="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-400 mb-4">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+        </div>
+        <h3 class="font-bold text-slate-800 mb-1">Laporan Iuran Warga</h3>
+        <p class="text-xs text-slate-500 leading-relaxed">Pantau rekapitulasi pembayaran iuran per warga, per blok, atau per kategori iuran.</p>
+    </div>
+</div>
+@endsection

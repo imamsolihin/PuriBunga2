@@ -82,7 +82,12 @@
                 </div>
             </div>
             <div class="flex items-center gap-3">
-                <button type="submit" class="bg-[#0f2557] hover:bg-[#1a3a8f] text-white px-6 py-2.5 rounded-xl text-sm font-semibold transition-colors shadow">Update Jurnal</button>
+                <button type="submit" 
+                        :disabled="!balanced"
+                        :class="balanced ? 'bg-[#0f2557] hover:bg-[#1a3a8f] cursor-pointer' : 'bg-slate-300 cursor-not-allowed'"
+                        class="text-white px-6 py-2.5 rounded-xl text-sm font-semibold transition-all shadow">
+                    Update Jurnal
+                </button>
                 <a href="{{ route('admin.jurnal.index') }}" class="text-slate-500 hover:text-slate-700 px-4 py-2.5 rounded-xl text-sm">Batal</a>
             </div>
         </form>

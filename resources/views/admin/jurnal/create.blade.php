@@ -6,10 +6,14 @@
     <div class="card-stat p-6">
         <form method="POST" action="{{ route('admin.jurnal.store') }}" class="space-y-5"
               x-data="{
+                tipe: '{{ old('tipe_transaksi', 'umum') }}',
                 details: [{ coa_id: '', debit: 0, kredit: 0 }, { coa_id: '', debit: 0, kredit: 0 }],
-                get totalDebit() { return this.details.reduce((s,d)=>s+parseFloat(d.debit||0),0); },
-                get totalKredit() { return this.details.reduce((s,d)=>s+parseFloat(d.kredit||0),0); },
-                get balanced() { return this.totalDebit === this.totalKredit && this.totalDebit > 0; }
+                get totalDebit() { return this.details.reduce((s,d)=>s+(parseFloat(d.debit)||0),0); },
+                get totalKredit() { return this.details.reduce((s,d)=>s+(parseFloat(d.kredit)||0),0); },
+                get balanced() { 
+                  const diff = Math.abs(this.totalDebit - this.totalKredit);
+                  return diff < 0.01 && this.totalDebit > 0; 
+                }
               }">
             @csrf
             <div class="grid sm:grid-cols-2 gap-4">
@@ -19,10 +23,10 @@
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-1.5">Tipe Transaksi <span class="text-red-500">*</span></label>
-                    <select name="tipe_transaksi" class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                        <option value="pemasukan" {{ old('tipe_transaksi') === 'pemasukan' ? 'selected' : '' }}>Pemasukan</option>
-                        <option value="pengeluaran" {{ old('tipe_transaksi') === 'pengeluaran' ? 'selected' : '' }}>Pengeluaran</option>
-                        <option value="umum" {{ old('tipe_transaksi') === 'umum' ? 'selected' : '' }}>Umum</option>
+                    <select name="tipe_transaksi" x-model="tipe" class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <option value="pemasukan">Pemasukan</option>
+                        <option value="pengeluaran">Pengeluaran</option>
+                        <option value="umum">Umum</option>
                     </select>
                 </div>
                 <div class="sm:col-span-2">
@@ -84,7 +88,12 @@
                 <p x-show="balanced" class="text-green-600 text-xs mt-1 font-medium">✓ Jurnal seimbang</p>
             </div>
             <div class="flex items-center gap-3">
-                <button type="submit" class="bg-[#0f2557] hover:bg-[#1a3a8f] text-white px-6 py-2.5 rounded-xl text-sm font-semibold transition-colors shadow">Simpan Jurnal</button>
+                <button type="submit" 
+                        :disabled="!balanced"
+                        :class="balanced ? 'bg-[#0f2557] hover:bg-[#1a3a8f] cursor-pointer' : 'bg-slate-300 cursor-not-allowed'"
+                        class="text-white px-6 py-2.5 rounded-xl text-sm font-semibold transition-all shadow">
+                    Simpan Jurnal
+                </button>
                 <a href="{{ route('admin.jurnal.index') }}" class="text-slate-500 hover:text-slate-700 px-4 py-2.5 rounded-xl text-sm">Batal</a>
             </div>
         </form>

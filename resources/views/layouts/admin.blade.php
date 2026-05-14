@@ -81,6 +81,10 @@
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
                 Kas Kecil
             </a>
+            <a href="{{ route('admin.laporan.index') }}" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-blue-100 text-sm {{ request()->routeIs('admin.laporan*') ? 'active' : '' }}">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                Laporan Keuangan
+            </a>
             <p class="text-blue-400 text-xs font-semibold uppercase tracking-wider px-3 py-2 mt-2">Lainnya</p>
             <a href="{{ route('admin.pengumuman.index') }}" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-blue-100 text-sm {{ request()->routeIs('admin.pengumuman*') ? 'active' : '' }}">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>

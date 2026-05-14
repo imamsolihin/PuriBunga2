@@ -28,6 +28,11 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::resource('jurnal', \App\Http\Controllers\Admin\JurnalController::class);
     Route::resource('kas-kecil', \App\Http\Controllers\Admin\KasKecilController::class);
     Route::resource('pengumuman', \App\Http\Controllers\Admin\PengumumanController::class);
+
+    // Laporan
+    Route::get('/laporan', [\App\Http\Controllers\Admin\ReportController::class, 'index'])->name('laporan.index');
+    Route::get('/laporan/buku-besar', [\App\Http\Controllers\Admin\ReportController::class, 'bukuBesar'])->name('laporan.buku-besar');
+    Route::get('/laporan/neraca-saldo', [\App\Http\Controllers\Admin\ReportController::class, 'neracaSaldo'])->name('laporan.neraca-saldo');
 });
 
 // ─── User Routes ──────────────────────────────────────────────────────────────
