@@ -70,6 +70,13 @@
             background-attachment: fixed;
         }
 
+        /* Fix for mobile background shifting */
+        @media (max-width: 768px) {
+            .hero-section {
+                background-attachment: scroll;
+            }
+        }
+
         .btn-premium {
             background: var(--accent);
             color: var(--primary);
@@ -138,6 +145,31 @@
             width: 100%;
         }
 
+        /* Scrolled Navbar State */
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        nav.scrolled .nav-text {
+            color: var(--primary) !important;
+        }
+
+        nav.scrolled .burger-icon {
+            color: var(--primary) !important;
+        }
+
+        nav.scrolled .nav-link {
+            color: var(--text-dim);
+        }
+
+        nav.scrolled .nav-link:hover {
+            color: var(--primary);
+        }
+
         /* Bulletin Board Style */
         .bulletin-board {
             background: #fdf6e3;
@@ -187,10 +219,10 @@
 <body x-data="{ mobileMenu: false }">
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 transition-all duration-300 glass-dark py-4">
+    <nav class="fixed w-full z-50 transition-all duration-300 glass-dark py-4" id="mainNav">
         <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
             <a href="#" class="flex items-center gap-3">
-                <span class="text-white font-bold text-xl tracking-tight">Puri Bunga <span class="text-accent">2</span></span>
+                <span class="text-white font-bold text-xl tracking-tight nav-text">Puri Bunga <span class="text-accent">2</span></span>
             </a>
 
             <!-- Desktop Menu -->
@@ -206,7 +238,7 @@
             </div>
 
             <!-- Mobile Toggle -->
-            <button @click="mobileMenu = !mobileMenu" class="md:hidden text-white">
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden text-white burger-icon">
                 <i data-lucide="menu" x-show="!mobileMenu"></i>
                 <i data-lucide="x" x-show="mobileMenu"></i>
             </button>
@@ -488,15 +520,15 @@
     <script>
         lucide.createIcons();
 
-        // Scroll reveal logic can be added here
+        // Navbar scroll logic
+        const nav = document.getElementById('mainNav');
         window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
             if (window.scrollY > 50) {
-                nav.classList.add('py-2', 'bg-primary/95');
-                nav.classList.remove('py-4', 'glass-dark');
+                nav.classList.add('scrolled');
+                nav.classList.remove('glass-dark', 'py-4');
             } else {
-                nav.classList.remove('py-2', 'bg-primary/95');
-                nav.classList.add('py-4', 'glass-dark');
+                nav.classList.remove('scrolled');
+                nav.classList.add('glass-dark', 'py-4');
             }
         });
     </script>
