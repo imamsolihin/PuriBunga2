@@ -54,8 +54,9 @@
             width: 100%;
             height: 100%;
             background-image: url("{{ asset('images/batik-pattern.png') }}");
-            background-size: 400px; /* Adjust size of batik tile */
-            opacity: 0.04; /* Keep it very subtle */
+            background-size: 500px; /* Adjust size of batik tile */
+            background-repeat: repeat;
+            opacity: 0.12; /* Increased visibility */
             pointer-events: none;
             z-index: -1;
         }
