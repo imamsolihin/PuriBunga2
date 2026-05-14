@@ -57,7 +57,7 @@
 
         .hero-section {
             background: linear-gradient(rgba(10, 25, 47, 0.6), rgba(10, 25, 47, 0.8)), 
-                        url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop');
+                        url('{{ asset('images/FotoPuriBunga2.png') }}');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -293,62 +293,67 @@
 
     <!-- Tentang Perumahan Section -->
     <section id="tentang" class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
-                <div class="relative">
-                    <img src="https://images.unsplash.com/photo-1600607687960-4a2123f7516e?q=80&w=2070&auto=format&fit=crop" 
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-accent font-bold tracking-widest text-sm mb-4 block uppercase">Our Residence</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-primary mb-6">Tentang Puri Bunga 2</h2>
+                <div class="w-20 h-1 bg-accent mx-auto"></div>
+            </div>
+
+            <!-- 1. Foto Perumahan -->
+            <div class="mb-16">
+                <div class="relative group overflow-hidden rounded-[2.5rem] shadow-2xl">
+                    <img src="{{ asset('images/FotoPuriBunga2.png') }}" 
                          alt="Puri Bunga 2 Residence" 
-                         class="rounded-[2.5rem] shadow-2xl z-10 relative">
-                    <div class="absolute -bottom-10 -right-10 w-64 h-64 bg-accent rounded-[2.5rem] -z-0 opacity-20 hidden md:block"></div>
-                    <div class="absolute -top-10 -left-10 w-40 h-40 border-8 border-accent rounded-full -z-0 opacity-10 hidden md:block"></div>
+                         class="w-full h-auto transform transition-transform duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent"></div>
                 </div>
-                <div>
-                    <span class="text-accent font-bold tracking-widest text-sm mb-4 block uppercase">The Residence</span>
-                    <h2 class="text-4xl md:text-5xl font-bold text-primary mb-8 leading-tight">Mewujudkan Hunian Impian Anda</h2>
-                    <p class="text-gray-600 text-lg mb-8 leading-relaxed">
-                        Puri Bunga 2 adalah perumahan dengan lingkungan nyaman, aman, dan cocok untuk keluarga. Memiliki akses strategis, lingkungan tertata rapi, dan fasilitas sekitar yang lengkap.
-                    </p>
-                    <div class="grid grid-cols-2 gap-6 mb-10">
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-bg-light rounded-full flex items-center justify-center text-accent">
-                                <i data-lucide="shield-check" class="w-6 h-6"></i>
-                            </div>
-                            <span class="font-bold text-primary">Security 24/7</span>
+            </div>
+
+            <!-- 2. Deskripsi -->
+            <div class="text-center mb-20">
+                <p class="text-gray-600 text-xl md:text-2xl leading-relaxed max-w-4xl mx-auto italic font-serif">
+                    "Puri Bunga 2 adalah perumahan dengan lingkungan nyaman, aman, dan cocok untuk keluarga. Memiliki akses strategis, lingkungan tertata rapi, dan fasilitas sekitar yang lengkap."
+                </p>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16">
+                    <div class="flex flex-col items-center gap-3">
+                        <div class="w-16 h-16 bg-bg-light rounded-2xl flex items-center justify-center text-accent shadow-sm">
+                            <i data-lucide="shield-check" class="w-8 h-8"></i>
                         </div>
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-bg-light rounded-full flex items-center justify-center text-accent">
-                                <i data-lucide="map-pin" class="w-6 h-6"></i>
-                            </div>
-                            <span class="font-bold text-primary">Akses Strategis</span>
+                        <span class="font-bold text-primary">Security 24/7</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-3">
+                        <div class="w-16 h-16 bg-bg-light rounded-2xl flex items-center justify-center text-accent shadow-sm">
+                            <i data-lucide="map-pin" class="w-8 h-8"></i>
                         </div>
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-bg-light rounded-full flex items-center justify-center text-accent">
-                                <i data-lucide="leaf" class="w-6 h-6"></i>
-                            </div>
-                            <span class="font-bold text-primary">Lingkungan Asri</span>
+                        <span class="font-bold text-primary">Akses Strategis</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-3">
+                        <div class="w-16 h-16 bg-bg-light rounded-2xl flex items-center justify-center text-accent shadow-sm">
+                            <i data-lucide="leaf" class="w-8 h-8"></i>
                         </div>
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-bg-light rounded-full flex items-center justify-center text-accent">
-                                <i data-lucide="wifi" class="w-6 h-6"></i>
-                            </div>
-                            <span class="font-bold text-primary">Fiber Optic Ready</span>
+                        <span class="font-bold text-primary">Lingkungan Asri</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-3">
+                        <div class="w-16 h-16 bg-bg-light rounded-2xl flex items-center justify-center text-accent shadow-sm">
+                            <i data-lucide="wifi" class="w-8 h-8"></i>
                         </div>
+                        <span class="font-bold text-primary">Fiber Optic Ready</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Video Section -->
-            <div class="mt-24">
-                <div class="relative rounded-[3rem] overflow-hidden shadow-2xl aspect-video bg-primary group">
-                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover opacity-60 transition-transform duration-700 group-hover:scale-110" alt="Video Cover">
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <button class="w-24 h-24 bg-accent text-primary rounded-full flex items-center justify-center transition-all hover:scale-110 hover:bg-accent-hover shadow-2xl">
-                            <i data-lucide="play" class="w-10 h-10 fill-current"></i>
-                        </button>
-                    </div>
-                    <div class="absolute bottom-10 left-10 text-white">
-                        <h3 class="text-2xl font-bold mb-2">Puri Bunga 2 Cinematic Tour</h3>
-                        <p class="text-white/70">Lihat keindahan hunian kami lebih dekat.</p>
+            <!-- 3. Video -->
+            <div class="relative rounded-[3rem] overflow-hidden shadow-2xl aspect-video bg-primary group">
+                <video class="w-full h-full object-cover" controls poster="{{ asset('images/FotoPuriBunga2.png') }}">
+                    <source src="{{ asset('videos/VideoPuriBunga2.mp4') }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="absolute bottom-6 right-6 pointer-events-none">
+                    <div class="bg-accent/90 backdrop-blur px-4 py-2 rounded-lg flex items-center gap-2">
+                        <i data-lucide="play-circle" class="w-4 h-4 text-primary"></i>
+                        <span class="text-[10px] font-bold text-primary uppercase tracking-widest">Official Video</span>
                     </div>
                 </div>
             </div>
