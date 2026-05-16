@@ -31,7 +31,10 @@
                                 <div class="w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center flex-shrink-0">
                                     <span class="text-white text-xs font-bold">{{ strtoupper(substr($warga->nama_lengkap, 0, 1)) }}</span>
                                 </div>
-                                <div class="font-semibold text-slate-800">{{ $warga->nama_lengkap }}</div>
+                                <div>
+                                    <div class="font-semibold text-slate-800">{{ $warga->nama_lengkap }}</div>
+                                    <div class="text-xs text-slate-500">Penghuni: {{ $warga->penghunis->pluck('nama')->implode(', ') ?: '-' }}</div>
+                                </div>
                             </div>
                         </td>
                         <td class="py-3 px-4 text-slate-600 font-medium">{{ $warga->blok_rumah }}/{{ $warga->nomor_rumah }}</td>

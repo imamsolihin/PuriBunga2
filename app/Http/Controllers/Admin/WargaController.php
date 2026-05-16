@@ -12,7 +12,7 @@ class WargaController extends Controller
 {
     public function index()
     {
-        $wargas = Warga::with('user')->latest()->paginate(15);
+        $wargas = Warga::with('user', 'penghunis')->latest()->paginate(15);
         return view('admin.warga.index', compact('wargas'));
     }
 
