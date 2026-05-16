@@ -81,6 +81,10 @@
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
                 Kas Kecil
             </a>
+            <a href="{{ route('admin.pengeluaran.index') }}" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-blue-100 text-sm {{ request()->routeIs('admin.pengeluaran*') ? 'active' : '' }}">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.407 2.45 1M12 8V6m0 2v12m0 0h1m-1 0H11"/></svg>
+                Pengeluaran
+            </a>
             <a href="{{ route('admin.laporan.index') }}" class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-xl text-blue-100 text-sm {{ request()->routeIs('admin.laporan*') ? 'active' : '' }}">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 Laporan Keuangan

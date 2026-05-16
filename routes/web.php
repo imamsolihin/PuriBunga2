@@ -28,6 +28,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::resource('coa', \App\Http\Controllers\Admin\CoaController::class);
     Route::resource('jurnal', \App\Http\Controllers\Admin\JurnalController::class);
     Route::resource('kas-kecil', \App\Http\Controllers\Admin\KasKecilController::class);
+    Route::resource('pengeluaran', \App\Http\Controllers\Admin\PengeluaranController::class);
     Route::resource('pengumuman', \App\Http\Controllers\Admin\PengumumanController::class);
 
     // Laporan
