@@ -30,6 +30,27 @@ class DashboardController extends Controller
 
         $pengumumans = Pengumuman::where('status', 'aktif')->orderByDesc('created_at')->take(3)->get();
 
-        return view('user.dashboard', compact('warga', 'totalLunas', 'totalBelum', 'iurans', 'pengumumans'));
+        $penghunis = $warga ? $warga->penghunis : collect();
+
+        return view('user.dashboard', compact('warga', 'totalLunas', 'totalBelum', 'iurans', 'pengumumans', 'penghunis'));
+    }
+
+    public function storePenghuni(\Illuminate\Http\Request $request)
+    {
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'nik' => 'nullable|string|max:20',
+            'no_hp' => 'nullable|string|max:20',
+            'hubungan' => 'nullable|string|max:50',
+        ]);
+
+        $warga = auth()->user()->warga;
+        if (!$warga) {
+            return redirect()->back()->with('error', 'Data warga tidak ditemukan.');
+        }
+
+        $warga->penghunis()->create($request->only('nama', 'nik', 'no_hp', 'hubungan'));
+
+        return redirect()->back()->with('success', 'Data penghuni berhasil ditambahkan.');
     }
 }

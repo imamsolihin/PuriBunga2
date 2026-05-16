@@ -28,7 +28,8 @@ class WargaController extends Controller
             'blok_rumah'   => 'required|string|max:10',
             'nomor_rumah'  => 'required|string|max:10',
             'no_hp'        => 'nullable|string|max:20',
-            'status'       => 'required|in:aktif,tidak',
+            'status'       => 'required|string',
+            'jenis_hunian' => 'required|string',
             'email'        => 'required|email|unique:users,email',
             'password'     => 'required|min:6',
         ]);
@@ -47,6 +48,7 @@ class WargaController extends Controller
             'nomor_rumah'  => $request->nomor_rumah,
             'no_hp'        => $request->no_hp,
             'status'       => $request->status,
+            'jenis_hunian' => $request->jenis_hunian,
         ]);
 
         return redirect()->route('admin.warga.index')->with('success', 'Data warga berhasil ditambahkan.');
@@ -70,10 +72,11 @@ class WargaController extends Controller
             'blok_rumah'   => 'required|string|max:10',
             'nomor_rumah'  => 'required|string|max:10',
             'no_hp'        => 'nullable|string|max:20',
-            'status'       => 'required|in:aktif,tidak',
+            'status'       => 'required|string',
+            'jenis_hunian' => 'required|string',
         ]);
 
-        $warga->update($request->only('nama_lengkap', 'blok_rumah', 'nomor_rumah', 'no_hp', 'status'));
+        $warga->update($request->only('nama_lengkap', 'blok_rumah', 'nomor_rumah', 'no_hp', 'status', 'jenis_hunian'));
 
         if ($warga->user && $request->filled('password')) {
             $warga->user->update(['password' => Hash::make($request->password)]);

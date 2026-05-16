@@ -40,6 +40,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
 // ─── User Routes ──────────────────────────────────────────────────────────────
 Route::prefix('user')->name('user.')->middleware(['auth', 'role:user'])->group(function () {
     Route::get('/dashboard', [\App\Http\Controllers\User\DashboardController::class, 'index'])->name('dashboard');
+    Route::post('/dashboard/penghuni', [\App\Http\Controllers\User\DashboardController::class, 'storePenghuni'])->name('dashboard.store-penghuni');
     Route::get('/iuran', [\App\Http\Controllers\User\IuranController::class, 'index'])->name('iuran');
     Route::get('/pengumuman', [\App\Http\Controllers\User\PengumumanController::class, 'index'])->name('pengumuman');
 });

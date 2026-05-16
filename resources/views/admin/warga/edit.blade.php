@@ -25,10 +25,24 @@
                     <input type="text" name="no_hp" value="{{ old('no_hp', $warga->no_hp) }}" class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
                 <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1.5">Jenis Hunian <span class="text-red-500">*</span></label>
+                    <select name="jenis_hunian" class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="Rumah tinggal" {{ ($warga->jenis_hunian === 'Rumah tinggal') ? 'selected' : '' }}>Rumah tinggal</option>
+                        <option value="kos-kosan" {{ ($warga->jenis_hunian === 'kos-kosan') ? 'selected' : '' }}>Kos-kosan</option>
+                        <option value="kontrak" {{ ($warga->jenis_hunian === 'kontrak') ? 'selected' : '' }}>Kontrak</option>
+                        <option value="masih tanah kosong" {{ ($warga->jenis_hunian === 'masih tanah kosong') ? 'selected' : '' }}>Masih tanah kosong</option>
+                    </select>
+                </div>
+                <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-1.5">Status</label>
                     <select name="status" class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
                         <option value="aktif" {{ ($warga->status === 'aktif') ? 'selected' : '' }}>Aktif</option>
                         <option value="tidak" {{ ($warga->status === 'tidak') ? 'selected' : '' }}>Tidak Aktif</option>
+                        <option value="Proses bangun" {{ ($warga->status === 'Proses bangun') ? 'selected' : '' }}>Proses bangun</option>
+                        <option value="dihuni pribadi" {{ ($warga->status === 'dihuni pribadi') ? 'selected' : '' }}>Dihuni pribadi</option>
+                        <option value="kosong" {{ ($warga->status === 'kosong') ? 'selected' : '' }}>Kosong</option>
+                        <option value="dikontrakkan" {{ ($warga->status === 'dikontrakkan') ? 'selected' : '' }}>Dikontrakkan</option>
+                        <option value="kantor" {{ ($warga->status === 'kantor') ? 'selected' : '' }}>Kantor</option>
                     </select>
                 </div>
             </div>

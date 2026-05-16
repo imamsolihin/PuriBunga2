@@ -28,10 +28,24 @@
                     @error('no_hp')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                 </div>
                 <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1.5">Jenis Hunian <span class="text-red-500">*</span></label>
+                    <select name="jenis_hunian" class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="Rumah tinggal" {{ old('jenis_hunian') === 'Rumah tinggal' ? 'selected' : '' }}>Rumah tinggal</option>
+                        <option value="kos-kosan" {{ old('jenis_hunian') === 'kos-kosan' ? 'selected' : '' }}>Kos-kosan</option>
+                        <option value="kontrak" {{ old('jenis_hunian') === 'kontrak' ? 'selected' : '' }}>Kontrak</option>
+                        <option value="masih tanah kosong" {{ old('jenis_hunian') === 'masih tanah kosong' ? 'selected' : '' }}>Masih tanah kosong</option>
+                    </select>
+                </div>
+                <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-1.5">Status <span class="text-red-500">*</span></label>
                     <select name="status" class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
                         <option value="aktif" {{ old('status') === 'aktif' ? 'selected' : '' }}>Aktif</option>
                         <option value="tidak" {{ old('status') === 'tidak' ? 'selected' : '' }}>Tidak Aktif</option>
+                        <option value="Proses bangun" {{ old('status') === 'Proses bangun' ? 'selected' : '' }}>Proses bangun</option>
+                        <option value="dihuni pribadi" {{ old('status') === 'dihuni pribadi' ? 'selected' : '' }}>Dihuni pribadi</option>
+                        <option value="kosong" {{ old('status') === 'kosong' ? 'selected' : '' }}>Kosong</option>
+                        <option value="dikontrakkan" {{ old('status') === 'dikontrakkan' ? 'selected' : '' }}>Dikontrakkan</option>
+                        <option value="kantor" {{ old('status') === 'kantor' ? 'selected' : '' }}>Kantor</option>
                     </select>
                 </div>
             </div>

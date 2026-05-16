@@ -92,5 +92,74 @@
             </div>
         </div>
     </div>
+
+    {{-- Penghuni Rumah --}}
+    <div class="space-y-4">
+        <div class="flex items-center justify-between px-2">
+            <h4 class="text-slate-800 font-black text-lg">Penghuni Rumah</h4>
+            <button onclick="document.getElementById('modal-penghuni').classList.remove('hidden')" class="bg-[#0f2557] text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-[#1a3a8f] transition-colors shadow">
+                Tambah Penghuni
+            </button>
+        </div>
+        <div class="card-stat overflow-hidden">
+            <table class="w-full text-sm">
+                <thead class="bg-slate-50">
+                    <tr>
+                        <th class="text-left py-3 px-4 text-xs text-slate-500 font-semibold uppercase">Nama</th>
+                        <th class="text-left py-3 px-4 text-xs text-slate-500 font-semibold uppercase">Hubungan</th>
+                        <th class="text-left py-3 px-4 text-xs text-slate-500 font-semibold uppercase">No. HP</th>
+                        <th class="text-left py-3 px-4 text-xs text-slate-500 font-semibold uppercase">NIK</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-50">
+                    @forelse($penghunis as $p)
+                    <tr class="hover:bg-slate-50">
+                        <td class="py-3 px-4 font-medium text-slate-700">{{ $p->nama }}</td>
+                        <td class="py-3 px-4 text-slate-600">{{ $p->hubungan }}</td>
+                        <td class="py-3 px-4 text-slate-600">{{ $p->no_hp ?? '-' }}</td>
+                        <td class="py-3 px-4 text-slate-600">{{ $p->nik ?? '-' }}</td>
+                    </tr>
+                    @empty
+                    <tr><td colspan="4" class="py-6 text-center text-slate-400">Belum ada data penghuni</td></tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {{-- Modal Tambah Penghuni --}}
+    <div id="modal-penghuni" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 w-full max-w-md shadow-xl">
+            <div class="flex justify-between items-center mb-4">
+                <h5 class="text-lg font-bold text-slate-800">Tambah Penghuni</h5>
+                <button onclick="document.getElementById('modal-penghuni').classList.add('hidden')" class="text-slate-400 hover:text-slate-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <form method="POST" action="{{ route('user.dashboard.store-penghuni') }}" class="space-y-4">
+                @csrf
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1.5">Nama Lengkap <span class="text-red-500">*</span></label>
+                    <input type="text" name="nama" class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1.5">Hubungan <span class="text-red-500">*</span></label>
+                    <input type="text" name="hubungan" placeholder="Contoh: Suami, Istri, Anak" class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1.5">No. HP</label>
+                    <input type="text" name="no_hp" class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1.5">NIK</label>
+                    <input type="text" name="nik" class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="flex justify-end gap-3 pt-2">
+                    <button type="button" onclick="document.getElementById('modal-penghuni').classList.add('hidden')" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-100 transition-colors">Batal</button>
+                    <button type="submit" class="bg-[#0f2557] text-white px-6 py-2.5 rounded-xl text-sm font-semibold hover:bg-[#1a3a8f] transition-colors shadow">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 @endsection

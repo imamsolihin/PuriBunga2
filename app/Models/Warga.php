@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Warga extends Model
 {
     protected $fillable = [
-        'user_id', 'nama_lengkap', 'blok_rumah', 'nomor_rumah', 'no_hp', 'status',
+        'user_id', 'nama_lengkap', 'blok_rumah', 'nomor_rumah', 'no_hp', 'status', 'jenis_hunian',
     ];
 
     public function user()
@@ -18,5 +18,10 @@ class Warga extends Model
     public function iurans()
     {
         return $this->hasMany(Iuran::class);
+    }
+
+    public function penghunis()
+    {
+        return $this->hasMany(Penghuni::class);
     }
 }
