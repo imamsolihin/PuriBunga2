@@ -18,6 +18,34 @@
         </div>
     </div>
     <div class="card-stat p-6">
+        <h3 class="font-bold text-slate-800 mb-4">Daftar Penghuni</h3>
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+                <thead class="bg-slate-50">
+                    <tr>
+                        <th class="text-left py-2 px-3 text-slate-500 font-semibold text-xs">Nama</th>
+                        <th class="text-left py-2 px-3 text-slate-500 font-semibold text-xs">Hubungan</th>
+                        <th class="text-left py-2 px-3 text-slate-500 font-semibold text-xs">No. HP</th>
+                        <th class="text-left py-2 px-3 text-slate-500 font-semibold text-xs">NIK</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-50">
+                    @forelse($warga->penghunis as $p)
+                    <tr class="hover:bg-slate-50">
+                        <td class="py-2 px-3 text-slate-700 font-medium">{{ $p->nama }}</td>
+                        <td class="py-2 px-3 text-slate-600">{{ $p->hubungan }}</td>
+                        <td class="py-2 px-3 text-slate-600">{{ $p->no_hp ?? '-' }}</td>
+                        <td class="py-2 px-3 text-slate-600">{{ $p->nik ?? '-' }}</td>
+                    </tr>
+                    @empty
+                    <tr><td colspan="4" class="py-8 text-center text-slate-400">Belum ada data penghuni</td></tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card-stat p-6">
         <h3 class="font-bold text-slate-800 mb-4">Riwayat Iuran</h3>
         <div class="overflow-x-auto">
             <table class="w-full text-sm">

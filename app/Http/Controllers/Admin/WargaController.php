@@ -56,7 +56,7 @@ class WargaController extends Controller
 
     public function show(Warga $warga)
     {
-        $warga->load('user', 'iurans.kategoriIuran');
+        $warga->load('user', 'iurans.kategoriIuran', 'penghunis');
         return view('admin.warga.show', compact('warga'));
     }
 
