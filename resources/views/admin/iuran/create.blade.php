@@ -42,7 +42,7 @@
             </div>
             <div>
                 <label class="block text-sm font-semibold text-slate-700 mb-1.5">Nominal (Rp) <span class="text-red-500">*</span></label>
-                <input type="number" name="nominal" value="{{ old('nominal') }}" class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" min="0" required>
+                <input type="number" name="nominal" value="{{ old('nominal', 100000) }}" class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" min="0" required>
             </div>
             <div class="grid sm:grid-cols-2 gap-4">
                 <div>

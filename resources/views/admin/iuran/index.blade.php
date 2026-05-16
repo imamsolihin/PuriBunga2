@@ -60,9 +60,13 @@
                         <td class="py-3 px-4 text-slate-600">{{ $iuran->bulan }} {{ $iuran->tahun }}</td>
                         <td class="py-3 px-4 text-right font-semibold text-slate-800">Rp {{ number_format($iuran->nominal, 0, ',', '.') }}</td>
                         <td class="py-3 px-4">
-                            <span class="px-2.5 py-1 rounded-full text-xs font-semibold {{ $iuran->status_pembayaran === 'lunas' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700' }}">
-                                {{ ucfirst($iuran->status_pembayaran) }}
-                            </span>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" class="sr-only peer toggle-status" data-id="{{ $iuran->id }}" {{ $iuran->status_pembayaran === 'lunas' ? 'checked' : '' }}>
+                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
+                                <span class="ml-3 text-xs font-semibold status-text {{ $iuran->status_pembayaran === 'lunas' ? 'text-green-600' : 'text-yellow-600' }}">
+                                    {{ $iuran->status_pembayaran === 'lunas' ? 'Lunas' : 'Belum Lunas' }}
+                                </span>
+                            </label>
                         </td>
                         <td class="py-3 px-4">
                             <div class="flex justify-end gap-2">
@@ -89,4 +93,47 @@
         @endif
     </div>
 </div>
+
+@push('scripts')
+<script>
+    document.querySelectorAll('.toggle-status').forEach(toggle => {
+        toggle.addEventListener('change', function() {
+            const id = this.getAttribute('data-id');
+            const isChecked = this.checked;
+            const textSpan = this.nextElementSibling.nextElementSibling;
+            
+            fetch(`/admin/iuran/${id}/toggle-status`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    if (data.status === 'lunas') {
+                        textSpan.textContent = 'Lunas';
+                        textSpan.className = 'ml-3 text-xs font-semibold status-text text-green-600';
+                    } else {
+                        textSpan.textContent = 'Belum Lunas';
+                        textSpan.className = 'ml-3 text-xs font-semibold status-text text-yellow-600';
+                    }
+                    // Optionally show a toast notification
+                    alert(data.message);
+                } else {
+                    this.checked = !isChecked;
+                    alert('Gagal mengubah status');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                this.checked = !isChecked;
+                alert('Terjadi kesalahan sistem.');
+            });
+        });
+    });
+</script>
+@endpush
 @endsection

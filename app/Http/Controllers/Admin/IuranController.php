@@ -90,4 +90,78 @@ class IuranController extends Controller
         $iuran->delete();
         return redirect()->route('admin.iuran.index')->with('success', 'Data iuran berhasil dihapus.');
     }
+
+    public function toggleStatus(Request $request, Iuran $iuran)
+    {
+        if ($iuran->status_pembayaran === 'belum') {
+            $iuran->update([
+                'status_pembayaran' => 'lunas',
+                'tanggal_bayar' => now()->toDateString()
+            ]);
+
+            // Create Journal
+            $keterangan = 'Pembayaran Iuran ' . $iuran->bulan . ' ' . $iuran->tahun . ' oleh ' . ($iuran->warga->nama_lengkap ?? '-');
+            $jurnal = \App\Models\Jurnal::create([
+                'tanggal' => now()->toDateString(),
+                'keterangan' => $keterangan,
+                'total' => $iuran->nominal,
+                'tipe_transaksi' => 'pemasukan'
+            ]);
+
+            $kasCoa = \App\Models\Coa::where('kode_akun', '101')->first();
+            
+            $pendapatanName = 'Pendapatan Iuran ' . ($iuran->kategoriIuran->nama_kategori ?? '');
+            $pendapatanCoa = \App\Models\Coa::where('nama_akun', $pendapatanName)->first();
+            if (!$pendapatanCoa) {
+                if (stripos($pendapatanName, 'Kas Lingkungan') !== false) {
+                    $pendapatanCoa = \App\Models\Coa::where('kode_akun', '403')->first();
+                } else if (stripos($pendapatanName, 'Perawatan') !== false) {
+                    $pendapatanCoa = \App\Models\Coa::where('kode_akun', '404')->first();
+                } else {
+                    $pendapatanCoa = \App\Models\Coa::where('kode_akun', '405')->first();
+                }
+            }
+
+            if ($kasCoa && $pendapatanCoa) {
+                \App\Models\JurnalDetail::create([
+                    'jurnal_id' => $jurnal->id,
+                    'coa_id' => $kasCoa->id,
+                    'debit' => $iuran->nominal,
+                    'kredit' => 0
+                ]);
+                \App\Models\JurnalDetail::create([
+                    'jurnal_id' => $jurnal->id,
+                    'coa_id' => $pendapatanCoa->id,
+                    'debit' => 0,
+                    'kredit' => $iuran->nominal
+                ]);
+            }
+
+            return response()->json([
+                'success' => true, 
+                'message' => 'Status menjadi Lunas dan Jurnal tercatat.', 
+                'status' => 'lunas'
+            ]);
+        } else {
+            // Revert back to belum lunas
+            $keterangan = 'Pembayaran Iuran ' . $iuran->bulan . ' ' . $iuran->tahun . ' oleh ' . ($iuran->warga->nama_lengkap ?? '-');
+            $jurnal = \App\Models\Jurnal::where('keterangan', $keterangan)->where('tanggal', $iuran->tanggal_bayar)->first();
+            
+            if ($jurnal) {
+                $jurnal->details()->delete();
+                $jurnal->delete();
+            }
+
+            $iuran->update([
+                'status_pembayaran' => 'belum',
+                'tanggal_bayar' => null
+            ]);
+
+            return response()->json([
+                'success' => true, 
+                'message' => 'Status dikembalikan ke Belum Lunas.', 
+                'status' => 'belum'
+            ]);
+        }
+    }
 }

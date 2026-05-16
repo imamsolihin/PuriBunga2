@@ -23,6 +23,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
 
     Route::resource('warga', \App\Http\Controllers\Admin\WargaController::class);
     Route::resource('iuran', \App\Http\Controllers\Admin\IuranController::class);
+    Route::post('/iuran/{iuran}/toggle-status', [\App\Http\Controllers\Admin\IuranController::class, 'toggleStatus'])->name('iuran.toggle-status');
     Route::resource('kategori-iuran', \App\Http\Controllers\Admin\KategoriIuranController::class);
     Route::resource('coa', \App\Http\Controllers\Admin\CoaController::class);
     Route::resource('jurnal', \App\Http\Controllers\Admin\JurnalController::class);
