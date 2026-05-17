@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Coa;
 use App\Models\JurnalDetail;
+use App\Models\Jurnal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -156,5 +157,154 @@ class ReportController extends Controller
         $totalModal = $modalAccounts->sum('balance') + $labaRugi;
 
         return view('admin.reports.neraca-ytd', compact('aset', 'kewajiban', 'modalAccounts', 'labaRugi', 'totalModal', 'date'));
+    }
+
+    public function laporanLabaRugi(Request $request)
+    {
+        $startDate = $request->start_date ?? now()->startOfMonth()->format('Y-m-d');
+        $endDate = $request->end_date ?? now()->endOfMonth()->format('Y-m-d');
+
+        $coas = Coa::withSum(['jurnalDetails as total_debit' => function($q) use ($startDate, $endDate) {
+            $q->whereHas('jurnal', fn($j) => $j->whereBetween('tanggal', [$startDate, $endDate]));
+        }], 'debit')
+        ->withSum(['jurnalDetails as total_kredit' => function($q) use ($startDate, $endDate) {
+            $q->whereHas('jurnal', fn($j) => $j->whereBetween('tanggal', [$startDate, $endDate]));
+        }], 'kredit')
+        ->orderBy('kode_akun')
+        ->get();
+
+        $pendapatan = $coas->filter(fn($c) => $c->tipe === 'pendapatan');
+        $beban = $coas->filter(fn($c) => $c->tipe === 'beban');
+
+        return view('admin.reports.laba-rugi', compact('pendapatan', 'beban', 'startDate', 'endDate'));
+    }
+
+    public function importCsv()
+    {
+        // Increase time limit for large files
+        set_time_limit(300);
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        \App\Models\JurnalDetail::truncate();
+        \App\Models\Jurnal::truncate();
+        Coa::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
+        // 1. Import COA
+        $coaFile = public_path('images/COA.csv');
+        if (file_exists($coaFile)) {
+            $handle = fopen($coaFile, 'r');
+            while (($data = fgetcsv($handle, 1000, ',')) !== FALSE) {
+                if (empty($data[0])) continue;
+                
+                $kode = trim($data[0]);
+                $nama = trim($data[1]);
+                
+                $codeInt = (int)$kode;
+                $tipe = 'beban';
+                if ($codeInt >= 10 && $codeInt <= 19) $tipe = 'aset';
+                elseif ($codeInt >= 20 && $codeInt <= 29) $tipe = 'kewajiban';
+                elseif ($codeInt >= 30 && $codeInt <= 39) $tipe = 'ekuitas';
+                elseif ($codeInt >= 40 && $codeInt <= 49) $tipe = 'pendapatan';
+                
+                Coa::create([
+                    'kode_akun' => $kode,
+                    'nama_akun' => $nama,
+                    'tipe' => $tipe,
+                ]);
+            }
+            fclose($handle);
+        }
+
+        // 2. Import Jurnal
+        $this->importJurnalFile(public_path('images/JURNAL_26.csv'));
+        $this->importJurnalFile(public_path('images/JURNAL_25.csv'));
+
+        return redirect()->route('admin.laporan.index')->with('success', 'Data berhasil diimpor dari CSV!');
+    }
+
+    private function importJurnalFile($filePath)
+    {
+        if (!file_exists($filePath)) return;
+
+        $handle = fopen($filePath, 'r');
+        $headerFound = false;
+        
+        $cashCoa = Coa::where('kode_akun', '10')->first();
+        if (!$cashCoa) {
+            $cashCoa = Coa::create(['kode_akun' => '10', 'nama_akun' => 'Kas dan Bank', 'tipe' => 'aset']);
+        }
+
+        while (($data = fgetcsv($handle, 1000, ',')) !== FALSE) {
+            if (!$headerFound) {
+                if (isset($data[1]) && str_contains($data[1], 'Tanggal')) {
+                    $headerFound = true;
+                }
+                continue;
+            }
+
+            if (empty($data[1])) continue;
+            
+            $tanggal = date('Y-m-d', strtotime($data[1]));
+            $accCode = trim($data[5]);
+            $accName = $data[6];
+            $uraian = $data[7];
+            $dr = (float)$data[9];
+            $cr = (float)$data[10];
+
+            if ($dr == 0 && $cr == 0) continue;
+
+            $coa = Coa::where('kode_akun', $accCode)->first();
+            if (!$coa) {
+                $codeInt = (int)$accCode;
+                $tipe = 'beban';
+                if ($codeInt >= 10 && $codeInt <= 19) $tipe = 'aset';
+                elseif ($codeInt >= 20 && $codeInt <= 29) $tipe = 'kewajiban';
+                elseif ($codeInt >= 30 && $codeInt <= 39) $tipe = 'ekuitas';
+                elseif ($codeInt >= 40 && $codeInt <= 49) $tipe = 'pendapatan';
+
+                $coa = Coa::create([
+                    'kode_akun' => $accCode,
+                    'nama_akun' => $accName ?: 'Uncategorized',
+                    'tipe' => $tipe,
+                ]);
+            }
+
+            $jurnal = \App\Models\Jurnal::create([
+                'tanggal' => $tanggal,
+                'keterangan' => $uraian ?: 'Imported',
+                'total' => max($dr, $cr),
+                'tipe_transaksi' => $dr > 0 ? 'pemasukan' : 'pengeluaran',
+            ]);
+
+            if ($dr > 0) {
+                \App\Models\JurnalDetail::create([
+                    'jurnal_id' => $jurnal->id,
+                    'coa_id' => $cashCoa->id,
+                    'debit' => $dr,
+                    'kredit' => 0,
+                ]);
+                \App\Models\JurnalDetail::create([
+                    'jurnal_id' => $jurnal->id,
+                    'coa_id' => $coa->id,
+                    'debit' => 0,
+                    'kredit' => $dr,
+                ]);
+            } else {
+                \App\Models\JurnalDetail::create([
+                    'jurnal_id' => $jurnal->id,
+                    'coa_id' => $coa->id,
+                    'debit' => $cr,
+                    'kredit' => 0,
+                ]);
+                \App\Models\JurnalDetail::create([
+                    'jurnal_id' => $jurnal->id,
+                    'coa_id' => $cashCoa->id,
+                    'debit' => 0,
+                    'kredit' => $cr,
+                ]);
+            }
+        }
+        fclose($handle);
     }
 }

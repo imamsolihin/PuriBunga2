@@ -2,6 +2,16 @@
 @section('title', 'Laporan Keuangan')
 @section('page-title', 'Pusat Laporan Keuangan')
 @section('content')
+<div class="mb-6 flex justify-between items-center">
+    <div>
+        <p class="text-sm text-slate-500">Pilih laporan yang ingin Anda lihat atau kelola.</p>
+    </div>
+    <a href="{{ route('admin.laporan.import-csv') }}" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl text-sm font-semibold transition-colors shadow flex items-center gap-2" onclick="return confirm('⚠️ PERHATIAN: Tindakan ini akan menghapus SEMUA data jurnal dan COA yang ada saat ini dan menggantinya dengan data dari file CSV (2025 & 2026). Apakah Anda yakin?')">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+        Reset & Impor Data CSV
+    </a>
+</div>
+
 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
     {{-- Buku Besar --}}
     <a href="{{ route('admin.laporan.buku-besar') }}" class="card-stat p-6 hover:ring-2 hover:ring-blue-500 transition-all group">
@@ -37,6 +47,15 @@
         </div>
         <h3 class="font-bold text-slate-800 mb-1">Neraca YTD</h3>
         <p class="text-xs text-slate-500 leading-relaxed">Laporan posisi keuangan (Aset, Kewajiban, Modal) akumulatif sampai tanggal tertentu.</p>
+    </a>
+
+    {{-- Laba Rugi --}}
+    <a href="{{ route('admin.laporan.laba-rugi') }}" class="card-stat p-6 hover:ring-2 hover:ring-yellow-500 transition-all group">
+        <div class="w-12 h-12 rounded-2xl bg-yellow-50 flex items-center justify-center text-yellow-600 mb-4 group-hover:bg-yellow-600 group-hover:text-white transition-colors">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+        </div>
+        <h3 class="font-bold text-slate-800 mb-1">Laporan Laba Rugi</h3>
+        <p class="text-xs text-slate-500 leading-relaxed">Pantau kinerja keuangan (Pendapatan vs Beban) untuk melihat surplus atau defisit.</p>
     </a>
 
     {{-- Laporan Iuran (Placeholder) --}}
