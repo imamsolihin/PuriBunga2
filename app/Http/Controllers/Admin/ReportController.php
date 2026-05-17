@@ -440,10 +440,10 @@ class ReportController extends Controller
             }
             $email = $slug . '@gmail.com';
 
-            // Check if email already exists
-            $existingUser = \App\Models\User::where('email', $email)->first();
-            if ($existingUser) {
-                $email = $slug . $warga->id . '@gmail.com';
+            $i = 1;
+            while (\App\Models\User::where('email', $email)->exists()) {
+                $email = $slug . $i . '@gmail.com';
+                $i++;
             }
 
             $user = \App\Models\User::create([
