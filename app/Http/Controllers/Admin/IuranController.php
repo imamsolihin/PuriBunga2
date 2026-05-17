@@ -25,7 +25,11 @@ class IuranController extends Controller
         }
 
         $iurans = $query->orderByDesc('tahun')->orderBy('bulan')->paginate(20);
-        $wargas = Warga::orderBy('nama_lengkap')->get();
+        $wargas = Warga::where('nama_lengkap', '!=', 'Tanpa Nama')
+            ->where('nama_lengkap', '!=', '0')
+            ->where('nama_lengkap', '!=', '')
+            ->orderBy('nama_lengkap')
+            ->get();
         $kategoris = KategoriIuran::all();
 
         return view('admin.iuran.index', compact('iurans', 'wargas', 'kategoris'));
@@ -33,7 +37,12 @@ class IuranController extends Controller
 
     public function create()
     {
-        $wargas = Warga::where('status', 'aktif')->orderBy('nama_lengkap')->get();
+        $wargas = Warga::where('status', 'aktif')
+            ->where('nama_lengkap', '!=', 'Tanpa Nama')
+            ->where('nama_lengkap', '!=', '0')
+            ->where('nama_lengkap', '!=', '')
+            ->orderBy('nama_lengkap')
+            ->get();
         $kategoris = KategoriIuran::all();
         return view('admin.iuran.create', compact('wargas', 'kategoris'));
     }
@@ -63,7 +72,12 @@ class IuranController extends Controller
 
     public function edit(Iuran $iuran)
     {
-        $wargas = Warga::where('status', 'aktif')->orderBy('nama_lengkap')->get();
+        $wargas = Warga::where('status', 'aktif')
+            ->where('nama_lengkap', '!=', 'Tanpa Nama')
+            ->where('nama_lengkap', '!=', '0')
+            ->where('nama_lengkap', '!=', '')
+            ->orderBy('nama_lengkap')
+            ->get();
         $kategoris = KategoriIuran::all();
         return view('admin.iuran.edit', compact('iuran', 'wargas', 'kategoris'));
     }
