@@ -20,7 +20,15 @@ class DashboardController extends Controller
 
         $totalPemasukan = Jurnal::where('tipe_transaksi', 'pemasukan')->sum('total');
         $totalPengeluaran = Jurnal::where('tipe_transaksi', 'pengeluaran')->sum('total');
-        $totalKas = $totalPemasukan - $totalPengeluaran;
+        
+        $coaKas = \App\Models\Coa::where('kode_akun', '10')->first();
+        $totalKas = 0;
+        if ($coaKas) {
+            $debit = \App\Models\JurnalDetail::where('coa_id', $coaKas->id)->sum('debit');
+            $kredit = \App\Models\JurnalDetail::where('coa_id', $coaKas->id)->sum('kredit');
+            $totalKas = $debit - $kredit;
+        }
+
 
         $iuranLunas = Iuran::where('status_pembayaran', 'lunas')->count();
         $iuranBelum = Iuran::where('status_pembayaran', 'belum')->count();
