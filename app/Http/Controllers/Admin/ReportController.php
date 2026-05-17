@@ -188,9 +188,14 @@ class ReportController extends Controller
             DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         }
         
+        // Truncate in order to respect FKs
+        \App\Models\Penghuni::truncate();
+        \App\Models\Iuran::truncate();
         \App\Models\JurnalDetail::truncate();
         \App\Models\Jurnal::truncate();
         Coa::truncate();
+        \App\Models\Warga::truncate();
+        \App\Models\KategoriIuran::truncate();
         
         if (DB::getDriverName() === 'mysql') {
             DB::statement('SET FOREIGN_KEY_CHECKS=1;');
@@ -225,6 +230,9 @@ class ReportController extends Controller
         // 2. Import Jurnal
         $this->importJurnalFile(public_path('images/JURNAL_26.csv'));
         $this->importJurnalFile(public_path('images/JURNAL_25.csv'));
+
+        // 3. Import Warga & Iuran
+        $this->importWargaFile(public_path('images/IURAN WARGA.csv'));
 
         return redirect()->route('admin.laporan.index')->with('success', 'Data berhasil diimpor dari CSV!');
     }
@@ -309,6 +317,106 @@ class ReportController extends Controller
                     'debit' => 0,
                     'kredit' => $cr,
                 ]);
+            }
+        }
+        fclose($handle);
+    }
+
+    private function importWargaFile($filePath)
+    {
+        if (!file_exists($filePath)) return;
+
+        $handle = fopen($filePath, 'r');
+        $headerFound = false;
+        
+        $category = \App\Models\KategoriIuran::firstOrCreate(
+            ['nama_kategori' => 'Iuran Bulanan'],
+            ['nominal_default' => 100000]
+        );
+
+        $months = [
+            1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April',
+            5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus',
+            9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember'
+        ];
+
+        while (($data = fgetcsv($handle, 1000, ',')) !== FALSE) {
+            if (!$headerFound) {
+                if (isset($data[0]) && $data[0] == 'No' && isset($data[1]) && $data[1] == 'Blok') {
+                    $headerFound = true;
+                }
+                continue;
+            }
+
+            if (empty($data[1]) || $data[1] == 'Jumlah') continue;
+            
+            $blokFull = trim($data[1]);
+            $nama = trim($data[2]);
+            $jenisHunian = trim($data[3]);
+            $kondisi = trim($data[4]);
+
+            $blok = '';
+            $nomor = $blokFull;
+            if (str_contains($blokFull, '-')) {
+                $parts = explode('-', $blokFull);
+                $blok = $parts[0];
+                $nomor = $parts[1];
+            }
+
+            $warga = \App\Models\Warga::create([
+                'nama_lengkap' => $nama ?: 'Tanpa Nama',
+                'blok_rumah' => $blok,
+                'nomor_rumah' => $nomor,
+                'jenis_hunian' => $jenisHunian,
+                'status' => $kondisi ?: 'aktif',
+            ]);
+
+            // 2024
+            for ($i = 6; $i <= 17; $i++) {
+                $val = isset($data[$i]) ? (float)$data[$i] : 0;
+                if ($val > 0) {
+                    $monthNum = $i - 5;
+                    \App\Models\Iuran::create([
+                        'warga_id' => $warga->id,
+                        'kategori_iuran_id' => $category->id,
+                        'bulan' => $months[$monthNum],
+                        'tahun' => 2024,
+                        'nominal' => $val,
+                        'status_pembayaran' => 'lunas',
+                    ]);
+                }
+            }
+
+            // 2025
+            for ($i = 19; $i <= 30; $i++) {
+                $val = isset($data[$i]) ? (float)$data[$i] : 0;
+                if ($val > 0) {
+                    $monthNum = $i - 18;
+                    \App\Models\Iuran::create([
+                        'warga_id' => $warga->id,
+                        'kategori_iuran_id' => $category->id,
+                        'bulan' => $months[$monthNum],
+                        'tahun' => 2025,
+                        'nominal' => $val,
+                        'status_pembayaran' => 'lunas',
+                    ]);
+                }
+            }
+
+            // 2026
+            for ($i = 32; $i <= 43; $i++) {
+                $val = isset($data[$i]) ? (float)$data[$i] : 0;
+                if ($val > 0) {
+                    $monthNum = $i - 31;
+                    \App\Models\Iuran::create([
+                        'warga_id' => $warga->id,
+                        'kategori_iuran_id' => $category->id,
+                        'bulan' => $months[$monthNum],
+                        'tahun' => 2026,
+                        'nominal' => $val,
+                        'status_pembayaran' => 'lunas',
+                    ]);
+                }
             }
         }
         fclose($handle);
