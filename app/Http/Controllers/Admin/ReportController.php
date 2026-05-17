@@ -184,6 +184,10 @@ class ReportController extends Controller
         // Increase time limit for large files
         set_time_limit(300);
 
+        if (DB::getDriverName() === 'pgsql') {
+            DB::statement('ALTER TABLE wargas DROP CONSTRAINT IF EXISTS wargas_status_check;');
+        }
+
         if (DB::getDriverName() === 'mysql') {
             DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         }
