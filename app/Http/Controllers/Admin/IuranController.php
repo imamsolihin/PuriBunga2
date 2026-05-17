@@ -37,8 +37,7 @@ class IuranController extends Controller
 
     public function create()
     {
-        $wargas = Warga::where('status', 'aktif')
-            ->where('nama_lengkap', '!=', 'Tanpa Nama')
+        $wargas = Warga::where('nama_lengkap', '!=', 'Tanpa Nama')
             ->where('nama_lengkap', '!=', '0')
             ->where('nama_lengkap', '!=', '')
             ->orderBy('nama_lengkap')
@@ -72,8 +71,7 @@ class IuranController extends Controller
 
     public function edit(Iuran $iuran)
     {
-        $wargas = Warga::where('status', 'aktif')
-            ->where('nama_lengkap', '!=', 'Tanpa Nama')
+        $wargas = Warga::where('nama_lengkap', '!=', 'Tanpa Nama')
             ->where('nama_lengkap', '!=', '0')
             ->where('nama_lengkap', '!=', '')
             ->orderBy('nama_lengkap')
