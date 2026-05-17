@@ -9,8 +9,8 @@
             <div>
                 <p class="text-white/70 text-xs font-bold uppercase tracking-[0.25em] mb-3">Informasi Hunian</p>
                 <div class="flex items-baseline gap-3">
-                    <p class="text-white text-4xl font-black drop-shadow">Blok {{ $warga->blok_rumah }}</p>
-                    <p class="text-white text-2xl font-bold drop-shadow">/ No. {{ $warga->nomor_rumah }}</p>
+                    <p class="text-white text-4xl font-black drop-shadow">Blok {{ $warga->blok_rumah ?? '-' }}</p>
+                    <p class="text-white text-2xl font-bold drop-shadow">/ No. {{ $warga->nomor_rumah ?? '-' }}</p>
                 </div>
                 <div class="flex items-center gap-2 mt-4">
                     <div class="w-5 h-5 rounded-full bg-green-400 flex items-center justify-center flex-shrink-0">
