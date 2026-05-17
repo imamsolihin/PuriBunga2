@@ -11,10 +11,36 @@ use Illuminate\Support\Facades\DB;
 
 class JurnalController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $jurnals = Jurnal::orderByDesc('tanggal')->paginate(20);
-        return view('admin.jurnal.index', compact('jurnals'));
+        $query = Jurnal::query();
+
+        if ($request->filled('tanggal')) {
+            $query->whereDate('tanggal', $request->tanggal);
+        }
+
+        if ($request->filled('coa_id')) {
+            $query->whereHas('details', function ($q) use ($request) {
+                $q->where('coa_id', $request->coa_id);
+            });
+        }
+
+        if ($request->filled('nominal')) {
+            $query->where('total', $request->nominal);
+        }
+
+        if ($request->filled('bulan')) {
+            $query->whereMonth('tanggal', $request->bulan);
+        }
+
+        if ($request->filled('tahun')) {
+            $query->whereYear('tanggal', $request->tahun);
+        }
+
+        $jurnals = $query->orderByDesc('tanggal')->paginate(20)->withQueryString();
+        $coas = Coa::orderBy('kode_akun')->get();
+
+        return view('admin.jurnal.index', compact('jurnals', 'coas'));
     }
 
     public function create()

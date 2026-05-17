@@ -12,6 +12,9 @@
             <div class="flex gap-2">
                 <button type="submit" class="bg-[#0f2557] text-white px-6 py-2 rounded-xl text-sm font-semibold hover:bg-[#1a3a8f] transition-colors shadow">Filter</button>
                 <button type="button" onclick="window.print()" class="bg-slate-100 text-slate-600 px-6 py-2 rounded-xl text-sm font-semibold hover:bg-slate-200 transition-colors">Cetak</button>
+                <a href="{{ route('admin.laporan.neraca-saldo', array_merge(request()->all(), ['export' => 'excel'])) }}" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-xl text-sm font-semibold transition-colors shadow inline-flex items-center justify-center">
+                    Excel
+                </a>
             </div>
         </form>
     </div>

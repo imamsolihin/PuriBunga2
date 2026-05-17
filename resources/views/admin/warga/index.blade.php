@@ -1,13 +1,13 @@
 @extends('layouts.admin')
-@section('title', 'Data Warga')
-@section('page-title', 'Manajemen Warga')
+@section('title', 'Data Penghuni')
+@section('page-title', 'Manajemen Penghuni')
 @section('content')
 <div class="space-y-4">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <p class="text-slate-500 text-sm">Total <strong class="text-slate-700">{{ $wargas->total() }}</strong> warga terdaftar</p>
+        <p class="text-slate-500 text-sm">Total <strong class="text-slate-700">{{ $wargas->total() }}</strong> penghuni terdaftar</p>
         <a href="{{ route('admin.warga.create') }}" class="inline-flex items-center gap-2 bg-[#0f2557] text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-[#1a3a8f] transition-colors shadow">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-            Tambah Warga
+            Tambah Penghuni
         </a>
     </div>
 
@@ -81,7 +81,7 @@
                     @empty
                     <tr><td colspan="6" class="py-16 text-center text-slate-400">
                         <svg class="w-12 h-12 mx-auto mb-3 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0"/></svg>
-                        Belum ada data warga
+                        Belum ada data penghuni
                     </td></tr>
                     @endforelse
                 </tbody>

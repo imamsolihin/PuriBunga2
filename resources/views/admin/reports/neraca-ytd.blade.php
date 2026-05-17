@@ -10,8 +10,12 @@
                 <label class="block text-sm font-semibold text-slate-700 mb-1.5">Per Tanggal</label>
                 <input type="date" name="date" value="{{ $date }}" class="border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
-            <div class="pt-6">
+            <div class="pt-6 flex gap-2">
                 <button type="submit" class="bg-[#0f2557] hover:bg-[#1a3a8f] text-white px-6 py-2.5 rounded-xl text-sm font-semibold transition-colors shadow">Filter</button>
+                <a href="{{ route('admin.laporan.neraca-ytd', array_merge(request()->all(), ['export' => 'excel'])) }}" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2.5 rounded-xl text-sm font-semibold transition-colors shadow inline-flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5l5 5v11a2 2 0 01-2 2z"/></svg>
+                    Export Excel
+                </a>
             </div>
         </form>
     </div>

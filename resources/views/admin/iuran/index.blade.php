@@ -44,7 +44,8 @@
             <table class="w-full text-sm">
                 <thead class="bg-slate-50">
                     <tr>
-                        <th class="text-left py-3 px-4 text-xs text-slate-500 font-semibold uppercase">Warga</th>
+                        <th class="text-left py-3 px-4 text-xs text-slate-500 font-semibold uppercase">Blok</th>
+                        <th class="text-left py-3 px-4 text-xs text-slate-500 font-semibold uppercase">Penghuni</th>
                         <th class="text-left py-3 px-4 text-xs text-slate-500 font-semibold uppercase">Kategori</th>
                         <th class="text-left py-3 px-4 text-xs text-slate-500 font-semibold uppercase">Periode</th>
                         <th class="text-right py-3 px-4 text-xs text-slate-500 font-semibold uppercase">Nominal</th>
@@ -55,6 +56,7 @@
                 <tbody class="divide-y divide-slate-50">
                     @forelse($iurans as $iuran)
                     <tr class="hover:bg-slate-50">
+                        <td class="py-3 px-4 text-slate-600">{{ $iuran->warga?->blok_rumah ?? '-' }}</td>
                         <td class="py-3 px-4 font-semibold text-slate-700">{{ $iuran->warga?->nama_lengkap ?? '-' }}</td>
                         <td class="py-3 px-4 text-slate-600">{{ $iuran->kategoriIuran?->nama_kategori ?? '-' }}</td>
                         <td class="py-3 px-4 text-slate-600">{{ $iuran->bulan }} {{ $iuran->tahun }}</td>
@@ -83,7 +85,7 @@
                         </td>
                     </tr>
                     @empty
-                    <tr><td colspan="6" class="py-16 text-center text-slate-400">Belum ada data iuran</td></tr>
+                    <tr><td colspan="7" class="py-16 text-center text-slate-400">Belum ada data iuran</td></tr>
                     @endforelse
                 </tbody>
             </table>

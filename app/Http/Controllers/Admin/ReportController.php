@@ -8,6 +8,12 @@ use App\Models\JurnalDetail;
 use App\Models\Jurnal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Exports\LaporanKasExport;
+use App\Exports\BukuBesarExport;
+use App\Exports\NeracaSaldoExport;
+use App\Exports\NeracaYtdExport;
+use App\Exports\LabaRugiExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReportController extends Controller
 {
@@ -52,6 +58,10 @@ class ReportController extends Controller
                 ->sortBy(fn($d) => $d->jurnal->tanggal);
         }
 
+        if ($request->export === 'excel') {
+            return Excel::download(new BukuBesarExport($coas, $details, $selectedCoa, $saldoAwal, $startDate, $endDate), 'buku-besar.xlsx');
+        }
+
         return view('admin.reports.buku-besar', compact('coas', 'details', 'selectedCoa', 'saldoAwal', 'startDate', 'endDate'));
     }
 
@@ -88,6 +98,10 @@ class ReportController extends Controller
             ];
         });
 
+        if ($request->export === 'excel') {
+            return Excel::download(new NeracaSaldoExport($data, $date), 'neraca-saldo.xlsx');
+        }
+
         return view('admin.reports.neraca-saldo', compact('data', 'date'));
     }
     public function laporanKas(Request $request)
@@ -101,12 +115,23 @@ class ReportController extends Controller
         ->withSum(['jurnalDetails as total_kredit' => function($q) use ($startDate, $endDate) {
             $q->whereHas('jurnal', fn($j) => $j->whereBetween('tanggal', [$startDate, $endDate]));
         }], 'kredit')
-        ->where('kode_akun', '!=', '101')
+        ->whereNotIn('kode_akun', ['10', '101'])
         ->orderBy('kode_akun')
         ->get();
 
+        $coas = $coas->map(function($coa) {
+            if ($coa->kode_akun == '11' || $coa->kode_akun == '11.0') {
+                $coa->nama_akun = 'Piutang Kas Kecil';
+            }
+            return $coa;
+        });
+
         $kasOperasional = $coas->filter(fn($c) => in_array($c->tipe, ['pendapatan', 'beban']));
         $nonOperasional = $coas->filter(fn($c) => in_array($c->tipe, ['aset', 'kewajiban']));
+
+        if ($request->export === 'excel') {
+            return Excel::download(new LaporanKasExport($kasOperasional, $nonOperasional, $startDate, $endDate), 'laporan-kas.xlsx');
+        }
 
         return view('admin.reports.laporan-kas', compact('kasOperasional', 'nonOperasional', 'startDate', 'endDate'));
     }
@@ -156,6 +181,10 @@ class ReportController extends Controller
 
         $totalModal = $modalAccounts->sum('balance') + $labaRugi;
 
+        if ($request->export === 'excel') {
+            return Excel::download(new NeracaYtdExport($aset, $kewajiban, $modalAccounts, $labaRugi, $totalModal, $date), 'neraca-ytd.xlsx');
+        }
+
         return view('admin.reports.neraca-ytd', compact('aset', 'kewajiban', 'modalAccounts', 'labaRugi', 'totalModal', 'date'));
     }
 
@@ -175,6 +204,10 @@ class ReportController extends Controller
 
         $pendapatan = $coas->filter(fn($c) => $c->tipe === 'pendapatan');
         $beban = $coas->filter(fn($c) => $c->tipe === 'beban');
+
+        if ($request->export === 'excel') {
+            return Excel::download(new LabaRugiExport($pendapatan, $beban, $startDate, $endDate), 'laba-rugi.xlsx');
+        }
 
         return view('admin.reports.laba-rugi', compact('pendapatan', 'beban', 'startDate', 'endDate'));
     }

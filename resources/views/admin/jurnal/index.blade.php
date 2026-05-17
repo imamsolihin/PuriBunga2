@@ -3,6 +3,43 @@
 @section('page-title', 'Jurnal Umum')
 @section('content')
 <div class="space-y-4">
+    {{-- Filter --}}
+    <div class="card-stat p-4">
+        <form method="GET" class="flex flex-wrap gap-3 items-end">
+            <div>
+                <label class="block text-xs font-semibold text-slate-500 mb-1">Tanggal</label>
+                <input type="date" name="tanggal" value="{{ request('tanggal') }}" class="border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div>
+                <label class="block text-xs font-semibold text-slate-500 mb-1">Akun</label>
+                <select name="coa_id" class="border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="">Semua Akun</option>
+                    @foreach($coas as $coa)
+                    <option value="{{ $coa->id }}" {{ request('coa_id') == $coa->id ? 'selected' : '' }}>{{ $coa->kode_akun }} - {{ $coa->nama_akun }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div>
+                <label class="block text-xs font-semibold text-slate-500 mb-1">Nominal</label>
+                <input type="number" name="nominal" value="{{ request('nominal') }}" placeholder="Contoh: 100000" class="border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div>
+                <label class="block text-xs font-semibold text-slate-500 mb-1">Bulan</label>
+                <select name="bulan" class="border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="">Semua Bulan</option>
+                    @foreach([['01','Januari'],['02','Februari'],['03','Maret'],['04','April'],['05','Mei'],['06','Juni'],['07','Juli'],['08','Agustus'],['09','September'],['10','Oktober'],['11','November'],['12','Desember']] as $m)
+                    <option value="{{ $m[0] }}" {{ request('bulan') === $m[0] ? 'selected' : '' }}>{{ $m[1] }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div>
+                <label class="block text-xs font-semibold text-slate-500 mb-1">Tahun</label>
+                <input type="number" name="tahun" value="{{ request('tahun') }}" placeholder="{{ date('Y') }}" class="border border-slate-200 rounded-xl px-3 py-2 text-sm w-28 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <button type="submit" class="bg-[#0f2557] text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-[#1a3a8f] transition-colors">Filter</button>
+            <a href="{{ route('admin.jurnal.index') }}" class="text-slate-500 hover:text-slate-700 px-4 py-2 rounded-xl text-sm">Reset</a>
+        </form>
+    </div>
     <div class="flex justify-end">
         <a href="{{ route('admin.jurnal.create') }}" class="inline-flex items-center gap-2 bg-[#0f2557] text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-[#1a3a8f] transition-colors shadow">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
