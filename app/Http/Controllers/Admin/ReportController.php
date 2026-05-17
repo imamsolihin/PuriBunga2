@@ -89,4 +89,24 @@ class ReportController extends Controller
 
         return view('admin.reports.neraca-saldo', compact('data', 'date'));
     }
+    public function laporanKas(Request $request)
+    {
+        $startDate = $request->start_date ?? now()->startOfYear()->format('Y-m-d');
+        $endDate = $request->end_date ?? now()->format('Y-m-d');
+
+        $coas = Coa::withSum(['jurnalDetails as total_debit' => function($q) use ($startDate, $endDate) {
+            $q->whereHas('jurnal', fn($j) => $j->whereBetween('tanggal', [$startDate, $endDate]));
+        }], 'debit')
+        ->withSum(['jurnalDetails as total_kredit' => function($q) use ($startDate, $endDate) {
+            $q->whereHas('jurnal', fn($j) => $j->whereBetween('tanggal', [$startDate, $endDate]));
+        }], 'kredit')
+        ->where('kode_akun', '!=', '101')
+        ->orderBy('kode_akun')
+        ->get();
+
+        $kasOperasional = $coas->filter(fn($c) => in_array($c->tipe, ['pendapatan', 'beban']));
+        $nonOperasional = $coas->filter(fn($c) => in_array($c->tipe, ['aset', 'kewajiban']));
+
+        return view('admin.reports.laporan-kas', compact('kasOperasional', 'nonOperasional', 'startDate', 'endDate'));
+    }
 }
