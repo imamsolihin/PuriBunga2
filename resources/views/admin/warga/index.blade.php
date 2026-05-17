@@ -50,6 +50,7 @@
                                 <div>
                                     <div class="font-semibold text-slate-800">{{ $warga->nama_lengkap }}</div>
                                     <div class="text-xs text-slate-500">Penghuni: {{ $warga->penghunis->pluck('nama')->implode(', ') ?: '-' }}</div>
+                                    <div class="text-xs text-blue-600 md:hidden mt-0.5">{{ $warga->user?->email ?? '-' }}</div>
                                 </div>
                             </div>
                         </td>
