@@ -36,6 +36,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::get('/laporan/buku-besar', [\App\Http\Controllers\Admin\ReportController::class, 'bukuBesar'])->name('laporan.buku-besar');
     Route::get('/laporan/neraca-saldo', [\App\Http\Controllers\Admin\ReportController::class, 'neracaSaldo'])->name('laporan.neraca-saldo');
     Route::get('/laporan/kas', [\App\Http\Controllers\Admin\ReportController::class, 'laporanKas'])->name('laporan.kas');
+    Route::get('/laporan/neraca-ytd', [\App\Http\Controllers\Admin\ReportController::class, 'neracaYtd'])->name('laporan.neraca-ytd');
 });
 
 // ─── User Routes ──────────────────────────────────────────────────────────────

@@ -30,6 +30,15 @@
         <p class="text-xs text-slate-500 leading-relaxed">Pantau arus kas masuk dan keluar yang dikelompokkan per akun operasional dan non-operasional.</p>
     </a>
 
+    {{-- Neraca YTD --}}
+    <a href="{{ route('admin.laporan.neraca-ytd') }}" class="card-stat p-6 hover:ring-2 hover:ring-blue-500 transition-all group">
+        <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600 mb-4 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        </div>
+        <h3 class="font-bold text-slate-800 mb-1">Neraca YTD</h3>
+        <p class="text-xs text-slate-500 leading-relaxed">Laporan posisi keuangan (Aset, Kewajiban, Modal) akumulatif sampai tanggal tertentu.</p>
+    </a>
+
     {{-- Laporan Iuran (Placeholder) --}}
     <div class="card-stat p-6 opacity-60 grayscale cursor-not-allowed">
         <div class="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-400 mb-4">

@@ -109,4 +109,52 @@ class ReportController extends Controller
 
         return view('admin.reports.laporan-kas', compact('kasOperasional', 'nonOperasional', 'startDate', 'endDate'));
     }
+
+    public function neracaYtd(Request $request)
+    {
+        $date = $request->date ?? now()->format('Y-m-d');
+
+        $coas = Coa::withSum(['jurnalDetails as total_debit' => function($q) use ($date) {
+            $q->whereHas('jurnal', fn($j) => $j->where('tanggal', '<=', $date));
+        }], 'debit')
+        ->withSum(['jurnalDetails as total_kredit' => function($q) use ($date) {
+            $q->whereHas('jurnal', fn($j) => $j->where('tanggal', '<=', $date));
+        }], 'kredit')
+        ->orderBy('kode_akun')
+        ->get();
+
+        $data = $coas->map(function($coa) {
+            $dr = $coa->total_debit ?? 0;
+            $cr = $coa->total_kredit ?? 0;
+            $balance = 0;
+
+            if (in_array($coa->tipe, ['aset', 'beban'])) {
+                $balance = $dr - $cr;
+            } else {
+                $balance = $cr - $dr;
+            }
+
+            return [
+                'id' => $coa->id,
+                'kode' => $coa->kode_akun,
+                'nama' => $coa->nama_akun,
+                'tipe' => $coa->tipe,
+                'balance' => $balance,
+            ];
+        });
+
+        $aset = $data->filter(fn($d) => $d['tipe'] === 'aset');
+        $kewajiban = $data->filter(fn($d) => $d['tipe'] === 'kewajiban' || $d['tipe'] === 'hutang');
+        $modalAccounts = $data->filter(fn($d) => $d['tipe'] === 'modal');
+        $pendapatan = $data->filter(fn($d) => $d['tipe'] === 'pendapatan');
+        $beban = $data->filter(fn($d) => $d['tipe'] === 'beban');
+
+        $totalPendapatan = $pendapatan->sum('balance');
+        $totalBeban = $beban->sum('balance');
+        $labaRugi = $totalPendapatan - $totalBeban;
+
+        $totalModal = $modalAccounts->sum('balance') + $labaRugi;
+
+        return view('admin.reports.neraca-ytd', compact('aset', 'kewajiban', 'modalAccounts', 'labaRugi', 'totalModal', 'date'));
+    }
 }
