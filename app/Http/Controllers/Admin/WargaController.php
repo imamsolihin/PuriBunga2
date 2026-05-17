@@ -10,9 +10,25 @@ use Illuminate\Support\Facades\Hash;
 
 class WargaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $wargas = Warga::with('user', 'penghunis')->latest()->paginate(15);
+        $query = Warga::with('user', 'penghunis');
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('nama_lengkap', 'like', "%{$search}%")
+                  ->orWhere('blok_rumah', 'like', "%{$search}%")
+                  ->orWhere('nomor_rumah', 'like', "%{$search}%");
+            });
+        }
+
+        // Sort: Real names first (alphabetical), then "Tanpa Nama" or "0"
+        $query->orderByRaw("CASE WHEN nama_lengkap IN ('Tanpa Nama', '0', '') THEN 1 ELSE 0 END")
+              ->orderBy('nama_lengkap', 'asc');
+
+        $wargas = $query->paginate(15)->withQueryString();
+
         return view('admin.warga.index', compact('wargas'));
     }
 

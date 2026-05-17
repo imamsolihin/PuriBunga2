@@ -10,6 +10,22 @@
             Tambah Warga
         </a>
     </div>
+
+    <!-- Search Form -->
+    <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+        <form action="{{ route('admin.warga.index') }}" method="GET" class="flex gap-2">
+            <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama, blok, atau nomor rumah..." class="flex-1 min-w-0 px-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0f2557] focus:border-transparent">
+            <button type="submit" class="bg-[#0f2557] text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#1a3a8f] transition-colors">
+                Cari
+            </button>
+            @if(request('search'))
+                <a href="{{ route('admin.warga.index') }}" class="bg-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-slate-300 transition-colors">
+                    Reset
+                </a>
+            @endif
+        </form>
+    </div>
+
     <div class="card-stat overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-sm">
