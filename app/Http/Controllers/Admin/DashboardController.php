@@ -13,7 +13,10 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $totalWarga = Warga::count();
+        $totalWarga = Warga::where('nama_lengkap', '!=', 'Tanpa Nama')
+            ->where('nama_lengkap', '!=', '0')
+            ->where('nama_lengkap', '!=', '')
+            ->count();
 
         $totalPemasukan = Jurnal::where('tipe_transaksi', 'pemasukan')->sum('total');
         $totalPengeluaran = Jurnal::where('tipe_transaksi', 'pengeluaran')->sum('total');
