@@ -17,6 +17,9 @@ Route::middleware('auth')->get('/dashboard', function () {
     return redirect()->route('user.dashboard');
 })->name('dashboard');
 
+Route::middleware('auth')->get('/password/change', [\App\Http\Controllers\Auth\PasswordController::class, 'edit'])->name('password.edit');
+
+
 // ─── Admin Routes ─────────────────────────────────────────────────────────────
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');

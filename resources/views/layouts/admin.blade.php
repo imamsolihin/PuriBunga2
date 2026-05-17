@@ -124,6 +124,10 @@
                         <div class="text-xs font-semibold text-slate-700">{{ auth()->user()->name }}</div>
                         <div class="text-xs text-slate-400">Admin</div>
                     </div>
+                    <a href="{{ route('password.edit') }}" class="flex items-center gap-2 text-sm text-slate-600 hover:text-slate-800 hover:bg-slate-50 px-3 py-2 rounded-xl transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m0 0a2 2 0 01-2 2m0-2a2 2 0 00-2-2m0 0a2 2 0 00-2 2m0 0a2 2 0 002 2m0 0V21m0 0H9m6 0h-6"/></svg>
+                        <span class="hidden sm:block">Ganti Password</span>
+                    </a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="flex items-center gap-2 text-sm text-red-500 hover:text-red-700 hover:bg-red-50 px-3 py-2 rounded-xl transition-colors">

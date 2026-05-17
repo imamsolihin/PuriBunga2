@@ -97,7 +97,11 @@
                         <p class="text-blue-300 text-[10px] font-bold uppercase tracking-wider">Warga</p>
                     </div>
                 </div>
-                <form method="POST" action="{{ route('logout') }}" class="mt-4">
+                <a href="{{ route('password.edit') }}" class="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-blue-500/10 text-blue-400 text-xs font-bold hover:bg-blue-500 hover:text-white transition-all mb-2 mt-4">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m0 0a2 2 0 01-2 2m0-2a2 2 0 00-2-2m0 0a2 2 0 00-2 2m0 0a2 2 0 002 2m0 0V21m0 0H9m6 0h-6"/></svg>
+                    GANTI PASSWORD
+                </a>
+                <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" class="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-red-500/10 text-red-400 text-xs font-bold hover:bg-red-500 hover:text-white transition-all">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
