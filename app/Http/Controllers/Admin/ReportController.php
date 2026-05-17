@@ -184,11 +184,17 @@ class ReportController extends Controller
         // Increase time limit for large files
         set_time_limit(300);
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        if (DB::getDriverName() === 'mysql') {
+            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        }
+        
         \App\Models\JurnalDetail::truncate();
         \App\Models\Jurnal::truncate();
         Coa::truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        
+        if (DB::getDriverName() === 'mysql') {
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        }
 
         // 1. Import COA
         $coaFile = public_path('images/COA.csv');
