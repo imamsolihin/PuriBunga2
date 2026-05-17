@@ -434,7 +434,12 @@ class ReportController extends Controller
         $count = 0;
 
         foreach ($wargas as $warga) {
-            $slug = \Illuminate\Support\Str::slug($warga->nama_lengkap, '');
+            $name = trim($warga->nama_lengkap);
+            if (empty($name) || $name === '0' || $name === 'Tanpa Nama') {
+                continue;
+            }
+            
+            $slug = \Illuminate\Support\Str::slug($name, '');
             if (empty($slug)) {
                 $slug = 'warga' . $warga->id;
             }
