@@ -39,6 +39,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::get('/laporan/neraca-ytd', [\App\Http\Controllers\Admin\ReportController::class, 'neracaYtd'])->name('laporan.neraca-ytd');
     Route::get('/laporan/laba-rugi', [\App\Http\Controllers\Admin\ReportController::class, 'laporanLabaRugi'])->name('laporan.laba-rugi');
     Route::get('/laporan/import-csv', [\App\Http\Controllers\Admin\ReportController::class, 'importCsv'])->name('laporan.import-csv');
+    Route::get('/laporan/create-warga-users', [\App\Http\Controllers\Admin\ReportController::class, 'createWargaUsers'])->name('laporan.create-warga-users');
 });
 
 // ─── User Routes ──────────────────────────────────────────────────────────────

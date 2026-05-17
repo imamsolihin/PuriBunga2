@@ -6,10 +6,16 @@
     <div>
         <p class="text-sm text-slate-500">Pilih laporan yang ingin Anda lihat atau kelola.</p>
     </div>
-    <a href="{{ route('admin.laporan.import-csv') }}" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl text-sm font-semibold transition-colors shadow flex items-center gap-2" onclick="return confirm('⚠️ PERHATIAN: Tindakan ini akan menghapus SEMUA data jurnal dan COA yang ada saat ini dan menggantinya dengan data dari file CSV (2025 & 2026). Apakah Anda yakin?')">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-        Reset & Impor Data CSV
-    </a>
+    <div class="flex gap-2">
+        <a href="{{ route('admin.laporan.create-warga-users') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-sm font-semibold transition-colors shadow flex items-center gap-2" onclick="return confirm('Apakah Anda yakin ingin membuat akun user untuk semua warga yang belum memiliki akun?')">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+            Buat Akun Warga
+        </a>
+        <a href="{{ route('admin.laporan.import-csv') }}" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl text-sm font-semibold transition-colors shadow flex items-center gap-2" onclick="return confirm('⚠️ PERHATIAN: Tindakan ini akan menghapus SEMUA data jurnal dan COA yang ada saat ini dan menggantinya dengan data dari file CSV (2025 & 2026). Apakah Anda yakin?')">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+            Reset & Impor Data CSV
+        </a>
+    </div>
 </div>
 
 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">

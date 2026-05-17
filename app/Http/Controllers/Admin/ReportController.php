@@ -425,4 +425,38 @@ class ReportController extends Controller
         }
         fclose($handle);
     }
+
+    public function createWargaUsers()
+    {
+        set_time_limit(300);
+        
+        $wargas = \App\Models\Warga::whereNull('user_id')->get();
+        $count = 0;
+
+        foreach ($wargas as $warga) {
+            $slug = \Illuminate\Support\Str::slug($warga->nama_lengkap, '');
+            if (empty($slug)) {
+                $slug = 'warga' . $warga->id;
+            }
+            $email = $slug . '@gmail.com';
+
+            // Check if email already exists
+            $existingUser = \App\Models\User::where('email', $email)->first();
+            if ($existingUser) {
+                $email = $slug . $warga->id . '@gmail.com';
+            }
+
+            $user = \App\Models\User::create([
+                'name' => $warga->nama_lengkap,
+                'email' => $email,
+                'password' => bcrypt('12345678'),
+                'role' => 'user',
+            ]);
+
+            $warga->update(['user_id' => $user->id]);
+            $count++;
+        }
+
+        return redirect()->route('admin.laporan.index')->with('success', "$count akun user berhasil dibuat!");
+    }
 }
